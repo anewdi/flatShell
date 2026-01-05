@@ -1,18 +1,14 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
-    "target": "ES2022",
-    "module": "ES2022",
+    "jsx": "react-jsx",
+    "jsxImportSource": "ags/gtk4",
     "lib": [
-      "ES2022"
+      "ES2023"
     ],
-    "allowJs": true,
-    "checkJs": true,
+    "module": "ES2022",
+    "moduleResolution": "Bundler",
     "strict": true,
-    "noImplicitAny": false,
-    "baseUrl": ".",
-    "typeRoots": [
-      "./types"
-    ],
-    "skipLibCheck": true
+    "target": "ES2020"
   }
 }

@@ -1,0 +1,16 @@
+@use './variables.scss';
+
+#keymapButton {
+  background-color: variables.$fg-color;
+  color: variables.$bg-color;
+  border-radius: 3px;
+  min-height: 0px;
+  margin: 5px 7px;
+}
+
+#keymapButton > label{
+  background-color: variables.$fg-color;
+  color: variables.$bg-color;
+  padding: 0 3px;
+  font-size: 11px;
+}

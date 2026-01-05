@@ -1,0 +1,75 @@
+@use "./variables.scss";
+.mediaplayer {
+  margin: 0px;
+  margin-top: 20px;
+  padding: 0px;
+
+  * {
+    background-color: transparent;
+  }
+
+  .coverArt {
+    border-radius: 15px 15px 0px 0px;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .cover {
+    label,
+    image {
+      color: grey;
+    }
+
+    border-radius: 15px 15px 0px 0px;
+    padding: 10px;
+    background-size: cover;
+    background-position: center;
+    background-image: radial-gradient(
+      color-mix(in srgb, variables.$bg-color 40%, variables.$fg-color 5%) 11%,
+      color-mix(in srgb, variables.$bg-color 60%, variables.$fg-color 5%) 65%
+    );
+
+    .title {
+      color: variables.$fg-color;
+      font-size: 1.2em;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .artist {
+      color: variables.$fg-color;
+      font-size: 1.1em;
+    }
+  }
+
+  .hoverControls {
+    &,
+    * {
+      background-color: transparent;
+    }
+
+    button {
+      opacity: 0;
+    }
+
+    button:hover {
+      opacity: 1;
+    }
+  }
+
+  scale.position {
+    padding: 0;
+    trough {
+      min-height: 7px;
+      border-radius: 0px 0px 13px 13px;
+      background-color: variables.$bg-secondary;
+    }
+    highlight {
+      border-radius: 0px 13px 13px 13px;
+      background-color: variables.$accent;
+    }
+    slider {
+      all: unset;
+    }
+  }
+}

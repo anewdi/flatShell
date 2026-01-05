@@ -1,0 +1,27 @@
+@use 'variables.scss';
+.workspaces button{
+  all: unset;
+
+  padding: 0px;
+  margin: 8px 3px;
+  min-height: 8px;
+  min-width: 8px;
+
+  background-color: variables.$bg-secondary;
+
+  transition: min-width 0.1s linear;
+
+  border: none;
+  border-radius: 50%;
+}
+
+.workspaces  button.visible{
+  background-color: variables.$fg-color;
+}
+
+.workspaces button.focused{
+  background-color: variables.$accent;
+  border-radius: 100px;
+  min-width: 40px;
+  margin: 6px 3px;
+}

@@ -1,0 +1,32 @@
+@use "./variables.scss";
+
+.batterybar {
+  * {
+    background-color: transparent;
+    font-weight: normal;
+  }
+  background-color: variables.$bg-secondary;
+  border-radius: 13px;
+  min-width: 300px;
+  padding: 12px;
+
+  label {
+    color: grey;
+  }
+
+  levelbar trough {
+    min-height: 8px;
+    border-radius: 13px;
+    background-color: variables.$bg-color;
+  }
+
+  levelbar trough block.filled {
+    border-radius: inherit;
+    background-color: lightgreen;
+  }
+
+  box {
+    padding: 0px 5px;
+    padding-top: 10px;
+  }
+}

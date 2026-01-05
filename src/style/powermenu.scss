@@ -1,0 +1,15 @@
+@use "./variables.scss";
+
+.powermenu {
+  padding: 10px;
+
+  image {
+    -gtk-icon-size: 16px;
+    padding: 5px 15px;
+  }
+
+  button:focus {
+    background-color: variables.$bg-secondary;
+    outline: none;
+  }
+}
