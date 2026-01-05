@@ -1,6 +1,7 @@
 import { exec } from "ags/process";
 import { Astal, Gdk, Gtk } from "ags/gtk4";
 import { Accessor } from "gnim";
+import { togglePopup } from "../lib/common";
 
 
 const pmenu = (monitor: number, name: string, anchor?: Accessor<NonNullable<Astal.WindowAnchor | undefined>> | Astal.WindowAnchor | undefined) =>
@@ -13,7 +14,7 @@ const pmenu = (monitor: number, name: string, anchor?: Accessor<NonNullable<Asta
     >
         <Gtk.EventControllerKey onKeyPressed={({ widget }, keyval: number) => {
             if (keyval == Gdk.KEY_Escape) {
-                widget.hide();
+                togglePopup(name);
             }
         }} />
         <box spacing={8}>
