@@ -2,7 +2,7 @@ import { Astal, Gtk } from "ags/gtk4";
 import { execAsync } from "ags/process";
 import Adw from "gi://Adw?version=1";
 import Network from "gi://AstalNetwork";
-import { createBinding, createComputed, For } from "gnim";
+import { createBinding, createComputed, For, onCleanup } from "gnim";
 import { Separator } from "./components/separator";
 
 const wwfi = Network.get_default().wifi;
@@ -59,6 +59,7 @@ export const networkWindow = (monitor: number = 0): JSX.Element =>
         exclusivity={Astal.Exclusivity.EXCLUSIVE}
         marginRight={100}
         marginTop={5}
+        $={(self) => onCleanup(() => self.destroy())}
     >
         <box orientation={Gtk.Orientation.VERTICAL}>
             <centerbox class={"header"}>

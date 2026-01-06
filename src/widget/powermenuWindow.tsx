@@ -1,6 +1,6 @@
 import { exec } from "ags/process";
 import { Astal, Gdk, Gtk } from "ags/gtk4";
-import { Accessor } from "gnim";
+import { Accessor, onCleanup } from "gnim";
 import { togglePopup } from "../lib/common";
 
 
@@ -11,6 +11,7 @@ const pmenu = (monitor: number, name: string, anchor?: Accessor<NonNullable<Asta
         keymode={Astal.Keymode.ON_DEMAND}
         anchor={anchor}
         class={"powermenu"}
+        $={(self) => onCleanup(() => self.destroy())}
     >
         <Gtk.EventControllerKey onKeyPressed={({ widget }, keyval: number) => {
             if (keyval == Gdk.KEY_Escape) {

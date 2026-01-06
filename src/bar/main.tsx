@@ -7,8 +7,10 @@ import { eth, wifi } from "./network"
 import { bluetooth } from "./bluetooth"
 import { notifications } from "./notifications"
 import { keymap } from "./keymap"
+import { onCleanup } from "gnim"
 
 const { TOP, LEFT, RIGHT, BOTTOM } = Astal.WindowAnchor;
+
 
 export const bar = (monitor: number = 0): JSX.Element =>
     < window
@@ -17,7 +19,9 @@ export const bar = (monitor: number = 0): JSX.Element =>
         monitor={monitor}
         exclusivity={Astal.Exclusivity.EXCLUSIVE}
         visible={true}
-        anchor={LEFT | TOP | RIGHT} >
+        anchor={LEFT | TOP | RIGHT}
+        $={(self) => onCleanup(() => self.destroy())}
+    >
         <box hexpand={true}>
             <box>
                 {workspaces()}

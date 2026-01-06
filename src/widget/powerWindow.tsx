@@ -2,7 +2,7 @@ import { Astal, Gtk } from "ags/gtk4";
 import { execAsync } from "ags/process";
 import PoweProfiles from "gi://AstalPowerProfiles";
 import Batt from "gi://AstalBattery";
-import { createBinding } from "gnim";
+import { createBinding, onCleanup } from "gnim";
 import { Separator } from "./components/separator";
 
 const powerprofiles = PoweProfiles.get_default();
@@ -44,6 +44,7 @@ export const powerWindow = (monitor: number = 0): JSX.Element =>
         exclusivity={Astal.Exclusivity.EXCLUSIVE}
         marginRight={40}
         marginTop={5}
+        $={(self) => onCleanup(() => self.destroy())}
     >
         <box orientation={Gtk.Orientation.VERTICAL}>
             <centerbox class="header">

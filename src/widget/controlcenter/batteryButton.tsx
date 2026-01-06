@@ -7,7 +7,8 @@ const percent = createBinding(batt, "percentage")((p: number) => ` ${Math.floor(
 const charging = createBinding(batt, "charging");
 
 const iconName = createComputed(() => charging() ?
-    `battery-level-${Math.floor(Number(percent()) / 10) * 10}-charging-symbolic` :
+    (Number(percent()) == 100) ? `battery-level-${Math.floor(Number(percent()) / 10) * 10}-charged-symbolic` :
+        `battery-level-${Math.floor(Number(percent()) / 10) * 10}-charging-symbolic` :
     `battery-level-${Math.floor(Number(percent()) / 10) * 10}-symbolic`);
 
 export const batteryButton = () =>

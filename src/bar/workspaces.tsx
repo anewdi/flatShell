@@ -1,17 +1,21 @@
 import Hyprland from "gi://AstalHyprland"
-import { createState, onCleanup } from "gnim"
+import { createBinding, createComputed } from "gnim"
 
 const hyprland = Hyprland.get_default()
 
+
 function workspaceButton(n: number): JSX.Element {
-    const [className, setClassName] = createState("");
+    const active = createBinding(hyprland, "focused_workspace");
+    const visible = createBinding(hyprland, "workspaces");
 
-    const i = hyprland.connect("event", (() => {
-        setClassName((s) => n == hyprland.focused_workspace.get_id() ? "focused" : ((hyprland.workspaces).map((w: Hyprland.Workspace) => w.get_id()).includes(n) ? "visible" : ""))
-    }))
-
-    onCleanup(() => {
-        hyprland.disconnect(i)
+    const className = createComputed(() => {
+        if (active() && n == active().get_id()) {
+            return "focused";
+        } else if (visible() && visible().map((w: Hyprland.Workspace) => w.get_id()).includes(n)) {
+            return "visible";
+        } else {
+            return ""
+        }
     })
 
     return (
@@ -21,4 +25,5 @@ function workspaceButton(n: number): JSX.Element {
         />
     )
 }
+
 export const workspaces = (): JSX.Element => <box cssClasses={["workspaces"]} children={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(workspaceButton)} />;

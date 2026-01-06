@@ -8,7 +8,7 @@ const enabled = createBinding(brightness, "enabled")
 const bvalue = createBinding(brightness, "screenValue")
 
 export const brightnessSlider = (): JSX.Element =>
-    <box class={"slider"}>
+    <box class={"slider"} sensitive={enabled}>
         <button><image iconName={"display-brightness-symbolic"} /></button>
         <slider
             sensitive={enabled}

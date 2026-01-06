@@ -2,7 +2,7 @@ import { Astal, Gtk } from "ags/gtk4";
 import { execAsync } from "ags/process";
 import Adw from "gi://Adw?version=1";
 import Bluetooth from "gi://AstalBluetooth";
-import { Accessor, createBinding, createComputed, For } from "gnim";
+import { Accessor, createBinding, createComputed, For, onCleanup } from "gnim";
 import { Separator } from "./components/separator";
 
 const bluetooth = Bluetooth.get_default();
@@ -48,6 +48,7 @@ export const bluetoothWindow = (monitor: number = 0): JSX.Element =>
         exclusivity={Astal.Exclusivity.EXCLUSIVE}
         marginRight={130}
         marginTop={5}
+        $={(self) => onCleanup(() => self.destroy())}
     >
         <box orientation={Gtk.Orientation.VERTICAL} >
             <centerbox class={"header"}>

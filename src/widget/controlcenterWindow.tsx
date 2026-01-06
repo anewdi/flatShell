@@ -12,6 +12,7 @@ import { brightnessSlider } from "./components/brightnessSlider.js";
 import Adw from "gi://Adw?version=1";
 import { Separator } from "./components/separator.js";
 import { togglePopup } from "../lib/common.js";
+import { onCleanup } from "gnim";
 
 export const controlcenterWindow = (monitor: number = 0): JSX.Element =>
     <window
@@ -22,6 +23,7 @@ export const controlcenterWindow = (monitor: number = 0): JSX.Element =>
         exclusivity={Astal.Exclusivity.EXCLUSIVE}
         marginRight={10}
         marginTop={10}
+        $={(self) => onCleanup(() => self.destroy())}
     >
         <Adw.Clamp maximumSize={350}>
             <box orientation={Gtk.Orientation.VERTICAL} >
