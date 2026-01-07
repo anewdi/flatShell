@@ -19,19 +19,19 @@ const pmenu = (monitor: number, name: string, anchor?: Accessor<NonNullable<Asta
             }
         }} />
         <box spacing={8}>
-            <button onClicked={() => { exec(`bash -c "loginctl lock-session"`); }}>
+            <button onClicked={() => { exec(`bash -c "loginctl lock-session"`); togglePopup(name) }}>
                 <image iconName={"system-lock-screen-symbolic"} />
             </button>
-            <button onClicked={() => { exec(`bash -c "systemctl suspend"`); }}>
+            <button onClicked={() => { exec(`bash -c "systemctl suspend"`); togglePopup(name) }}>
                 <image iconName={"media-playback-pause-symbolic"} />
             </button>
-            <button onClicked={() => { exec(`bash -c "reboot"`); }}>
+            <button onClicked={() => { exec(`bash -c "reboot"`); togglePopup(name) }}>
                 <image iconName={"system-reboot-symbolic"} />
             </button>
-            <button onClicked={() => { exec(`bash -c "loginctl terminate-user $USER"`); }}>
+            <button onClicked={() => { exec(`bash -c "loginctl terminate-user $USER"`); togglePopup(name) }}>
                 <image iconName={"system-log-out-symbolic"} />
             </button>
-            <button onClicked={() => { exec(`bash -c "shutdown -h now"`); }}>
+            <button onClicked={() => { exec(`bash -c "shutdown -h now"`); togglePopup(name) }}>
                 <image iconName={"system-shutdown-symbolic"} />
             </button>
         </box>

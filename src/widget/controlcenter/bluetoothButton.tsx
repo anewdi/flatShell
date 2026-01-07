@@ -9,8 +9,8 @@ export const bluetoothButton = () =>
         <box spacing={8}>
             <image
                 iconName={createBinding(bluetooth, "is_connected")(b => b ? "bluetooth-active-symbolic" : "bluetooth-disconnected-symbolic")} />
-            <label label={createBinding(bluetooth, "devices")((devs) => {
-                let cand = devs.find(d => d.connected);
+            <label label={createBinding(bluetooth, "is_connected")((devs) => {
+                let cand = bluetooth.devices.find(d => d.connected);
                 return cand ? cand.name : "Bluetooth"
             })} />
         </box>

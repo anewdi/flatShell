@@ -1,5 +1,6 @@
 import { Gtk } from "ags/gtk4";
 import Mpris from "gi://AstalMpris";
+import Pango from "gi://Pango?version=1.0";
 import { createBinding, For } from "gnim";
 
 const mpris = Mpris.get_default();
@@ -18,6 +19,7 @@ function lengthStr(length: number) {
     return `${min}:${sec0}${sec}`;
 }
 
+
 const mplayer = (player: Mpris.Player) =>
     <box orientation={Gtk.Orientation.VERTICAL} height_request={160}>
         <overlay>
@@ -32,8 +34,8 @@ const mplayer = (player: Mpris.Player) =>
                     class={"cover"}
                     orientation={Gtk.Orientation.VERTICAL}>
                     <centerbox >
-                        <label $type="start" class={"title"} label={createBinding(player, "title")} />
-                        <image $type="end" iconName={createBinding(player, "entry")(e => e + "-symbolic")} />
+                        <label $type="start" class={"title"} ellipsize={Pango.EllipsizeMode.END} label={createBinding(player, "title")} />
+                        <image $type="end" iconName={createBinding(player, "entry")(e => e == "zen" ? "firefox-symbolic" : e + "-symbolic")} />
                     </centerbox>
                     <box>
                         <label halign={Gtk.Align.START} class={"artist"} label={createBinding(player, "artist")} />

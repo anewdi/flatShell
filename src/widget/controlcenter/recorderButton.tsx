@@ -21,8 +21,8 @@ export const recorderButton = () =>
 
         <button onClicked={() => {
             if (!active()) {
-                subprocess(`bash -c "wf-recorder -c libx264rgb -f ~/temp.mkv"`, (out) => setActive(b => false), (err) => setActive(b => false))
-                setActive(b => true);
+                subprocess(`bash -c "wf-recorder -c libx264rgb -f ~/temp.mkv"`, () => setActive(() => false), () => setActive(() => false))
+                setActive(() => true);
                 counter();
             } else {
                 exec(`bash -c "pkill wf-recorder"`)

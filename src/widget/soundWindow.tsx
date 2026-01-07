@@ -4,6 +4,8 @@ import Wp from "gi://AstalWp";
 import { Accessor, createBinding, For, onCleanup } from "gnim";
 import { volumeSlider } from "./components/volumeSlider";
 import { Separator } from "./components/separator";
+import Pango from "gi://Pango?version=1.0";
+import Adw from "gi://Adw?version=1";
 
 const wp = Wp.get_default();
 
@@ -17,19 +19,18 @@ const speakerButton = (endpoint: Wp.Endpoint): JSX.Element => {
     const active = createBinding(endpoint, "is_default");
 
     return <button
-
         class={active(b => b ? "activeButton" : "")}
-        onClicked={() => endpoint.set_is_default(true)}>
-
-        <centerbox>
-            <box $type="start" spacing={8}>
+        onClicked={() => endpoint.set_is_default(true)}
+    >
+        <box spacing={8}>
+            <box halign={Gtk.Align.START} spacing={8}>
                 <image iconName={iconstring} />
-                <label label={device.description} />
+                <label ellipsize={Pango.EllipsizeMode.END} label={device.description} />
             </box>
-            <stack $type="end">
+            <stack halign={Gtk.Align.END} hexpand={true}>
                 <label label={createBinding(endpoint, "volume")((v) => Math.round(v * 100) + "%")} />
             </stack>
-        </centerbox >
+        </box >
     </button >;
 };
 
@@ -46,24 +47,26 @@ export const soundWindow = (monitor: number = 0): JSX.Element =>
         marginTop={5}
         $={(self) => onCleanup(() => self.destroy())}
     >
-        <box orientation={Gtk.Orientation.VERTICAL}>
-            <centerbox class={"header"}>
-                <label $type="start" label="Sound" />
-                <box $type="end">
-                    <button
-                        onClicked={() => {
-                            execAsync("env XDG_CURRENT_DESKTOP=gnome gnome-control-center sound");
-                        }}>
-                        <image iconName={"applications-system-symbolic"} />
-                    </button>
+        <Adw.Clamp maximum_size={330}>
+            <box orientation={Gtk.Orientation.VERTICAL}>
+                <centerbox class={"header"}>
+                    <label $type="start" label="Sound" />
+                    <box $type="end">
+                        <button
+                            onClicked={() => {
+                                execAsync("env XDG_CURRENT_DESKTOP=gnome gnome-control-center sound");
+                            }}>
+                            <image iconName={"applications-system-symbolic"} />
+                        </button>
+                    </box>
+                </centerbox>
+                {volumeSlider()}
+                <Separator />
+                <box orientation={Gtk.Orientation.VERTICAL} class={"body"}>
+                    <For each={speakers}>
+                        {(item, index) => speakerButton(item)}
+                    </For>
                 </box>
-            </centerbox>
-            {volumeSlider()}
-            <Separator />
-            <box orientation={Gtk.Orientation.VERTICAL} class={"body"}>
-                <For each={speakers}>
-                    {(item, index) => speakerButton(item)}
-                </For>
             </box>
-        </box>
+        </Adw.Clamp>
     </window >
