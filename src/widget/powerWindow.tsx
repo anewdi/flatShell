@@ -4,6 +4,7 @@ import PoweProfiles from "gi://AstalPowerProfiles";
 import Batt from "gi://AstalBattery";
 import { createBinding, onCleanup } from "gnim";
 import { Separator } from "./components/separator";
+import { Popup } from "./components/Popup";
 
 const powerprofiles = PoweProfiles.get_default();
 const batt = Batt.get_default();
@@ -36,49 +37,43 @@ const rate = createBinding(batt, "energy_rate");
 
 
 export const powerWindow = (monitor: number = 0): JSX.Element =>
-    <window
-        name={`powerWindow` + monitor}
-        class={"windowPopup"}
+    <Popup
+        name={`powerWindow`}
         monitor={monitor}
-        anchor={Astal.WindowAnchor.TOP | Astal.WindowAnchor.RIGHT}
-        exclusivity={Astal.Exclusivity.EXCLUSIVE}
-        marginRight={40}
-        marginTop={5}
-        $={(self) => onCleanup(() => self.destroy())}
+        halign={Gtk.Align.END}
+        margin_end={10}
     >
-        <box orientation={Gtk.Orientation.VERTICAL}>
-            <centerbox class="header">
-                <label $type="start" label="Power" />
-                <box $type="end">
-                    <button
-                        onClicked={() => {
-                            execAsync("env XDG_CURRENT_DESKTOP=gnome gnome-control-center power");
-                        }}>
-                        <image iconName={"applications-system-symbolic"} />
-                    </button>
-                </box>
+        <centerbox class="header">
+            <label $type="start" label="Power" />
+            <box $type="end">
+                <button
+                    onClicked={() => {
+                        execAsync("env XDG_CURRENT_DESKTOP=gnome gnome-control-center power");
+                    }}>
+                    <image iconName={"applications-system-symbolic"} />
+                </button>
+            </box>
+        </centerbox>
+        <box orientation={Gtk.Orientation.VERTICAL} class={"batterybar"}>
+            <levelbar hexpand={true}
+                value={createBinding(batt, "percentage")}
+                orientation={Gtk.Orientation.HORIZONTAL} />
+            <centerbox>
+                <label $type="start" label={rate(pull => {
+                    if (pull > 0) {
+                        return "Discharging - " + Math.round(pull) + "W";
+                    }
+                    else if (pull == 0) {
+                        return "External Power";
+                    } else {
+                        return "Charging - " + -Math.round(pull) + "W"
+                    }
+                })} />
+                <label $type="end" label={percentage(p => (Math.floor(p * 100)).toString() + "%")} />
             </centerbox>
-            <box orientation={Gtk.Orientation.VERTICAL} class={"batterybar"}>
-                <levelbar hexpand={true}
-                    value={createBinding(batt, "percentage")}
-                    orientation={Gtk.Orientation.HORIZONTAL} />
-                <centerbox>
-                    <label $type="start" label={rate(pull => {
-                        if (pull > 0) {
-                            return "Discharging - " + Math.round(pull) + "W";
-                        }
-                        else if (pull == 0) {
-                            return "External Power";
-                        } else {
-                            return "Charging - " + -Math.round(pull) + "W"
-                        }
-                    })} />
-                    <label $type="end" label={percentage(p => (Math.floor(p * 100)).toString() + "%")} />
-                </centerbox>
-            </box>
-            <Separator />
-            <box orientation={Gtk.Orientation.VERTICAL} class={"body"}>
-                {powerprofiles.get_profiles().map(powerbox)}
-            </box>
         </box>
-    </window >
+        <Separator />
+        <box orientation={Gtk.Orientation.VERTICAL} class={"body"}>
+            {powerprofiles.get_profiles().map(powerbox)}
+        </box>
+    </Popup >

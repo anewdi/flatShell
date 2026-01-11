@@ -1,103 +1,20 @@
 @use "./variables.scss";
 
-window {
-  border-radius: var(--window-radius);
-}
-
-.separator {
-  margin-top: 15px;
-}
-
 * {
   color: variables.$fg-color;
-  background-color: variables.$bg-color;
-
+  -gtk-icon-size: 13px;
   font-family: Cantarell;
   font-weight: normal;
   font-size: 13px;
 }
 
-.windowCloser,
-.windowCloser * {
-  background-color: rgba(0, 0, 0, 0.1);
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-  }
-}
-
-image {
-  -gtk-icon-size: 13px;
-}
-
-.bar {
-  border-radius: 0px;
-  padding: 0 8px;
-
-  label {
-    font-weight: bold;
-  }
-}
-
-#rightContainerBar > * {
-  padding: 0 3px;
-}
-
-.windowPopup {
-  padding: 15px;
-  border: none;
-  border-radius: 13px;
-  min-width: 300px;
-
-  .header {
-    margin: 5px;
-    label {
-      font-weight: bold;
-    }
-  }
-
-  .body {
-    margin: 0px;
-    padding: 0px;
-    border-radius: 13px;
-
-    stack > label {
-      color: grey;
-    }
-
-    * {
-      background-color: variables.$bg-secondary;
-    }
-
-    button {
-      padding: 15px;
-      border-radius: 0px;
-      border-bottom: 2px solid variables.$bg-color;
-    }
-
-    button:first-child {
-      border-top-left-radius: inherit;
-      border-top-right-radius: inherit;
-    }
-    button:last-child {
-      border-bottom-left-radius: inherit;
-      border-bottom-right-radius: inherit;
-      border: none;
-    }
-  }
-
-  .activeButton {
-    background-color: var(--accent-bg-color);
-    * {
-      color: var(--accent-fg-color);
-      background-color: transparent;
-    }
-    stack > label {
-      color: var(--accent-fg-color);
-    }
-  }
+window {
+  border-radius: var(--window-radius);
+  background-color: transparent;
 }
 
 button {
+  background-color: variables.$bg-color;
   * {
     background-color: transparent;
   }
@@ -106,10 +23,22 @@ button {
   }
 }
 
-scrolledwindow,
-scrolledwindow > * {
-  all: unset;
-  border-radius: var(--window-radius);
+.separator {
+  margin-top: 15px;
+}
+
+.bar {
+  background-color: variables.$bg-color;
+  border-radius: 0px;
+  padding: 0 8px;
+
+  label {
+    font-weight: bold;
+  }
+
+  #rightContainerBar > * {
+    padding: 0 3px;
+  }
 }
 
 .switchToggles button {

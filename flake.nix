@@ -29,7 +29,6 @@
         network
         wireplumber
         bluetooth
-        notifd
         powerprofiles
         mpris
         astal4

@@ -3,7 +3,7 @@ import style from "./src/style/default.scss"
 import { bar } from "./src/bar/main";
 import { bluetoothWindow } from "./src/widget/bluetoothWindow";
 import Hyprland from "gi://AstalHyprland"
-import { closer, togglePopup } from "./src/lib/common";
+import { togglePopup } from "./src/lib/common";
 import { soundWindow } from "./src/widget/soundWindow";
 import { networkWindow } from "./src/widget/networkWindow";
 import { powerWindow } from "./src/widget/powerWindow";
@@ -11,13 +11,10 @@ import { powermenuRightWindow, powermenuWindow } from "./src/widget/powermenuWin
 import { controlcenterWindow } from "./src/widget/controlcenterWindow";
 import { For, This, createBinding } from "gnim";
 
-const hyprland = Hyprland.get_default();
-
 function main() {
-    const monitors = createBinding(hyprland, "monitors");
-    return (
-        <For each={monitors} >
-            {(monitor) => (
+    < For each={createBinding(Hyprland.get_default(), "monitors")} >
+        {(monitor: Hyprland.Monitor) => {
+            return (
                 <This this={app} >
                     {bar(monitor.id)}
                     {bluetoothWindow(monitor.id)}
@@ -27,10 +24,11 @@ function main() {
                     {powermenuWindow(monitor.id)}
                     {powermenuRightWindow(monitor.id)}
                     {controlcenterWindow(monitor.id)}
-                    {closer(monitor.id)}
                 </This>
-            )}
-        </For>)
+            )
+        }
+        }
+    </For >
 }
 
 app.start({

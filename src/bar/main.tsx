@@ -5,7 +5,6 @@ import { battery } from "./battery"
 import { volume } from "./volume"
 import { eth, wifi } from "./network"
 import { bluetooth } from "./bluetooth"
-import { notifications } from "./notifications"
 import { keymap } from "./keymap"
 import { onCleanup } from "gnim"
 
@@ -31,7 +30,6 @@ export const bar = (monitor: number = 0): JSX.Element =>
                 hexpand={true}
                 halign={Gtk.Align.END}>
                 {keymap()}
-                {notifications()}
                 {bluetooth()}
                 {wifi()}
                 {eth()}
