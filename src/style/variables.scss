@@ -7,6 +7,7 @@ $hover: color-mix(in srgb, $bg-secondary, $fg-color 15%);
 $accent: var(--accent-color);
 $accent-fg: var(--accent-fg-color);
 $accent-bg: var(--accent-bg-color);
+$dark-bg: #222226;
 
 @mixin hoverButton {
   button:hover {

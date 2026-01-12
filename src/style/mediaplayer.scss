@@ -12,8 +12,8 @@
     background-size: cover;
     background-position: center;
     background-image: radial-gradient(
-      color-mix(in srgb, variables.$bg-color 40%, variables.$fg-color 5%) 11%,
-      color-mix(in srgb, variables.$bg-color 60%, variables.$fg-color 5%) 65%
+      color-mix(in srgb, variables.$dark-bg 40%, white 5%) 11%,
+      color-mix(in srgb, variables.$dark-bg 60%, white 5%) 65%
     );
 
     label,
@@ -22,19 +22,23 @@
     }
 
     .title {
-      color: variables.$fg-color;
+      color: white;
       font-size: 1.2em;
       margin-top: 10px;
       font-weight: bold;
     }
 
     .artist {
-      color: variables.$fg-color;
+      color: white;
       font-size: 1.1em;
     }
   }
 
   .hoverControls button {
+    image {
+      color: white;
+    }
+
     opacity: 0;
     &:hover {
       opacity: 1;
