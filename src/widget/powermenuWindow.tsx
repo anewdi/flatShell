@@ -12,25 +12,26 @@ const pmenu = (monitor: number, name: string, align: Gtk.Align) =>
         margin_end={10}
         cssClasses={["powermenuWindow"]}
         orientation={Gtk.Orientation.HORIZONTAL}
-        width={330}
-        forceWidth={true}
+        width={360}
     >
-        <button onClicked={() => { exec(`bash -c "loginctl lock-session"`); togglePopup(name) }}>
-            <image iconName={"system-lock-screen-symbolic"} />
-        </button>
-        <button onClicked={() => { exec(`bash -c "systemctl suspend"`); togglePopup(name) }}>
-            <image iconName={"media-playback-pause-symbolic"} />
-        </button>
-        <button onClicked={() => { exec(`bash -c "reboot"`); togglePopup(name) }}>
-            <image iconName={"system-reboot-symbolic"} />
-        </button>
-        <button onClicked={() => { exec(`bash -c "loginctl terminate-user $USER"`); togglePopup(name) }}>
-            <image iconName={"system-log-out-symbolic"} />
-        </button>
-        <button onClicked={() => { exec(`bash -c "shutdown -h now"`); togglePopup(name) }}>
-            <image iconName={"system-shutdown-symbolic"} />
-        </button>
-    </Popup>
+        <box orientation={Gtk.Orientation.HORIZONTAL} halign={Gtk.Align.CENTER} hexpand={true}>
+            <button onClicked={() => { exec(`bash -c "loginctl lock-session"`); togglePopup(name) }}>
+                <image iconName={"system-lock-screen-symbolic"} />
+            </button>
+            <button onClicked={() => { exec(`bash -c "systemctl suspend"`); togglePopup(name) }}>
+                <image iconName={"media-playback-pause-symbolic"} />
+            </button>
+            <button onClicked={() => { exec(`bash -c "reboot"`); togglePopup(name) }}>
+                <image iconName={"system-reboot-symbolic"} />
+            </button>
+            <button onClicked={() => { exec(`bash -c "loginctl terminate-user $USER"`); togglePopup(name) }}>
+                <image iconName={"system-log-out-symbolic"} />
+            </button>
+            <button onClicked={() => { exec(`bash -c "shutdown -h now"`); togglePopup(name) }}>
+                <image iconName={"system-shutdown-symbolic"} />
+            </button>
+        </box>
+    </Popup >
 
 export const powermenuWindow = (monitor: number = 0) => {
     return pmenu(monitor, "powermenuWindow", Gtk.Align.CENTER);

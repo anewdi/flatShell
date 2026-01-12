@@ -18,7 +18,7 @@ export const controlcenterWindow = (monitor: number = 0): JSX.Element =>
         name={`controlcenterWindow`}
         monitor={monitor}
         margin_end={10}
-        width={330}
+        width={360}
     >
         <centerbox class={"header controlcenterHeader"}>
             {batteryButton()}

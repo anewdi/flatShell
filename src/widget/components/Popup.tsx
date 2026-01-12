@@ -14,7 +14,7 @@ type PopupProps = JSX.IntrinsicElements["window"] & {
 export function Popup({
     name,
     children,
-    width = 300,
+    width = 330,
     forceWidth = true,
     orientation = Gtk.Orientation.VERTICAL,
     halign = Gtk.Align.END,
@@ -79,14 +79,11 @@ export function Popup({
                 margin_top={margin_top}
                 margin_end={margin_end}
                 margin_start={props.margin_start}
+                unit={Adw.LengthUnit.PX}
+                css={`min-width: ${forceWidth ? width : 0}px;`}
                 $={(self) => { content = self }}
             >
-                <box
-                    cssClasses={cssClasses}
-                    orientation={orientation}
-                    halign={Gtk.Align.CENTER}
-                    css={`min-width: ${forceWidth ? width : 0}px;`}
-                >
+                <box hexpand={true} cssClasses={cssClasses} orientation={orientation} >
                     {children}
                 </box>
             </Adw.Clamp>
