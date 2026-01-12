@@ -1,0 +1,51 @@
+@use "./variables.scss";
+
+.bar {
+  background-color: variables.$bg-color;
+  padding: 0 8px;
+
+  @include variables.hoverButton;
+
+  label {
+    font-weight: bold;
+  }
+
+  #keymapButton {
+    background-color: variables.$fg-color;
+    border-radius: 3px;
+    min-height: 0px;
+    margin: 5px 7px;
+    & > label {
+      color: variables.$bg-color;
+      padding: 0 3px;
+      font-size: 11px;
+    }
+  }
+
+  #popupButtons > * {
+    padding: 0 3px;
+  }
+
+  .workspaces button {
+    padding: 0px;
+    margin: 8px 3px;
+    min-height: 8px;
+    min-width: 8px;
+
+    background-color: variables.$hover;
+
+    transition: min-width 0.1s linear;
+    border-radius: 50%;
+  }
+
+  .workspaces button.visible {
+    background-color: variables.$fg-color;
+  }
+
+  .workspaces button.focused {
+    background-color: variables.$accent;
+    border-radius: 100px;
+    min-width: 40px;
+    margin: 6px 3px;
+  }
+}

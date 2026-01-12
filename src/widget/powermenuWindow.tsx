@@ -9,9 +9,11 @@ const pmenu = (monitor: number, name: string, align: Gtk.Align) =>
         name={name}
         monitor={monitor}
         halign={align}
-        overrideClass="powermenuWindow"
+        margin_end={10}
+        cssClasses={["powermenuWindow"]}
         orientation={Gtk.Orientation.HORIZONTAL}
-        forceWidth={false}
+        width={330}
+        forceWidth={true}
     >
         <button onClicked={() => { exec(`bash -c "loginctl lock-session"`); togglePopup(name) }}>
             <image iconName={"system-lock-screen-symbolic"} />

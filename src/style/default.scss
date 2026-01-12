@@ -1,8 +1,6 @@
-@use "./batterybar.scss";
 @use "./common.scss";
-@use "./keymapButton.scss";
-@use "./slider.scss";
-@use "./workspaces.scss";
-@use "./mediaplayer.scss";
-@use "./powermenuWindow.scss";
+@use "./bar.scss";
 @use "./windowPopup.scss";
+@use "./powermenuWindow.scss";
+@use "./mediaplayer.scss";
+@use "./slider.scss";

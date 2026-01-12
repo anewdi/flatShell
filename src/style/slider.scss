@@ -1,37 +1,35 @@
 @use "./variables.scss";
 
+$height: 23px;
+
 .slider {
   padding: 3px;
 
-  * {
-    all: unset;
-  }
-
-  image {
+  button {
     background-color: variables.$fg-color;
-    color: variables.$bg-color;
+    min-height: $height;
     border-radius: 13px 0px 0px 13px;
-    padding: 0px 15px 0px 10px;
-    -gtk-icon-size: 12px;
+    padding: 0px 4px;
+    image {
+      color: variables.$bg-color;
+      -gtk-icon-size: 12px;
+    }
   }
 
-  scale,
-  scale * {
-    border-radius: 0px 13px 13px 0px;
-    min-height: 22px;
-  }
-
-  trough {
-    background-color: variables.$bg-secondary;
-  }
-
-  highlight {
-    background-color: variables.$fg-color;
-    border-radius: 0px 4px 4px 0px;
-  }
-
-  :disabled scale highlight,
-  :disabled image {
-    background-color: grey;
+  scale {
+    padding: 0px;
+    min-height: 0px;
+    trough {
+      background-color: variables.$bg-secondary;
+      border-radius: 0 15px 15px 0;
+      min-height: $height;
+    }
+    highlight {
+      background-color: variables.$fg-color;
+      border-radius: 0px 4px 4px 0px;
+    }
+    slider {
+      all: unset;
+    }
   }
 }

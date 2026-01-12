@@ -30,23 +30,20 @@ const mplayer = (player: Mpris.Player) =>
                     css={createBinding(player, "coverArt")(path => `background-image: url("file://${path}");`)} />
                 <box
                     $type="overlay"
-                    vexpand={true}
-                    class={"cover"}
+                    class={"coverDesc"}
                     orientation={Gtk.Orientation.VERTICAL}>
-                    <centerbox >
-                        <label $type="start" class={"title"} ellipsize={Pango.EllipsizeMode.END} label={createBinding(player, "title")} />
-                        <image $type="end" iconName={createBinding(player, "entry")(e => e == "zen" ? "firefox-symbolic" : e + "-symbolic")} />
-                    </centerbox>
+                    <box >
+                        <label halign={Gtk.Align.START} class={"title"} ellipsize={Pango.EllipsizeMode.END} label={createBinding(player, "title")} />
+                        <image halign={Gtk.Align.END} hexpand={true} iconName={createBinding(player, "entry")(e => e == "zen" ? "firefox-symbolic" : e + "-symbolic")} />
+                    </box>
                     <box>
                         <label halign={Gtk.Align.START} class={"artist"} label={createBinding(player, "artist")} />
                     </box>
-                    <box vexpand={true}></box>
-                    <centerbox valign={Gtk.Align.END}>
+                    <centerbox vexpand={true} valign={Gtk.Align.END}>
                         <label $type="start" label={createBinding(player, "position")(p => lengthStr(p))} />
                         <label $type="end" label={createBinding(player, "length")(l => lengthStr(l))} />
                     </centerbox>
                 </box>
-
             </overlay>
             <box $type="overlay" homogeneous={true} class={"hoverControls"}>
                 <button onClicked={() => player.previous()}><image iconName={PREV_ICON} /></button>
@@ -57,7 +54,6 @@ const mplayer = (player: Mpris.Player) =>
             </box>
         </overlay>
         <slider
-            class={"position"}
             onChangeValue={({ value }) => { player.position = value * player.length }}
             visible={createBinding(player, "length")(l => l > 0)}
             value={createBinding(player, "position")(p => p / player.length > 0 ? p / player.length : 0)}
@@ -69,7 +65,7 @@ const players = createBinding(mpris, "players");
 export const mediaplayer = () =>
     <box class={"mediaplayer"} spacing={8} orientation={Gtk.Orientation.VERTICAL} >
         <For each={players}>
-            {(item, index) => mplayer(item)}
+            {(item, _) => mplayer(item)}
         </For>
     </box>
 

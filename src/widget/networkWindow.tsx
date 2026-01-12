@@ -62,9 +62,7 @@ export const networkWindow = (monitor: number = 0): JSX.Element =>
     <Popup
         name={"networkWindow"}
         monitor={monitor}
-        margin_end={80}
-        halign={Gtk.Align.END}
-        visibleCb={(v: Gtk.Widget) => { if (v.visible) wifi.scan() }}
+        onNotifyVisible={(v: Gtk.Widget) => { if (v.visible) wifi.scan() }}
     >
         <centerbox class={"header"}>
             <label $type="start" label="Wifi" />

@@ -8,25 +8,24 @@ import { bluetooth } from "./bluetooth"
 import { keymap } from "./keymap"
 import { onCleanup } from "gnim"
 
-const { TOP, LEFT, RIGHT, BOTTOM } = Astal.WindowAnchor;
+const { TOP, LEFT, RIGHT } = Astal.WindowAnchor;
 
 
 export const bar = (monitor: number = 0): JSX.Element =>
     < window
         name={"bar" + monitor}
-        cssClasses={["bar"]}
         monitor={monitor}
         exclusivity={Astal.Exclusivity.EXCLUSIVE}
         visible={true}
         anchor={LEFT | TOP | RIGHT}
         $={(self) => onCleanup(() => self.destroy())}
     >
-        <box hexpand={true}>
+        <box hexpand={true} cssClasses={["bar"]}>
             <box>
                 {workspaces()}
             </box>
             <box
-                name={"rightContainerBar"}
+                name={"popupButtons"}
                 hexpand={true}
                 halign={Gtk.Align.END}>
                 {keymap()}

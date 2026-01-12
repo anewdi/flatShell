@@ -2,68 +2,85 @@
 
 .windowPopup {
   background-color: variables.$bg-color;
-  border-radius: var(--window-radius);
+  border-radius: variables.$border-radius;
   padding: 15px;
+
+  scrolledwindow,
+  scrolledwindow > * {
+    all: unset;
+  }
 
   .header {
     margin: 5px;
+    margin-top: 0px;
     label {
       font-weight: bold;
     }
   }
 
+  .controlcenterHeader {
+    margin-left: 0px;
+  }
+
   .body {
-    margin: 0px;
-    padding: 0px;
-    border-radius: 13px;
-
-    stack > label {
-      color: grey;
-    }
-
-    * {
-      background-color: variables.$bg-secondary;
-    }
+    border-radius: variables.$border-radius;
+    background-color: variables.$bg-secondary;
 
     button {
       padding: 15px;
       border-radius: 0px;
       border-bottom: 2px solid variables.$bg-color;
 
-      &:hover {
-        background-color: color-mix(
-          in srgb,
-          variables.$bg-secondary,
-          white 10%
-        );
+      &:first-child {
+        border-top-left-radius: variables.$border-radius;
+        border-top-right-radius: variables.$border-radius;
+      }
+
+      &:last-child {
+        border-bottom-left-radius: variables.$border-radius;
+        border-bottom-right-radius: variables.$border-radius;
+        border: none;
       }
     }
+    @include variables.hoverButton;
+    @include variables.activeButton;
 
-    button:first-child {
-      border-top-left-radius: inherit;
-      border-top-right-radius: inherit;
-    }
-    button:last-child {
-      border-bottom-left-radius: inherit;
-      border-bottom-right-radius: inherit;
-      border: none;
-    }
-  }
-
-  .activeButton {
-    background-color: var(--accent-bg-color);
-    * {
-      color: var(--accent-fg-color);
-      background-color: transparent;
-    }
     stack > label {
-      color: var(--accent-fg-color);
+      color: grey;
     }
   }
 
-  scrolledwindow,
-  scrolledwindow > * {
-    all: unset;
-    border-radius: var(--window-radius);
+  .switchToggles {
+    button {
+      padding: 10px;
+      border-radius: 10px;
+      background-color: variables.$bg-secondary;
+    }
+    @include variables.hoverButton;
+    @include variables.activeButton;
+  }
+
+  .batterybar {
+    background-color: variables.$bg-secondary;
+    border-radius: variables.$border-radius;
+    padding: 12px;
+
+    label {
+      color: grey;
+    }
+
+    levelbar trough {
+      min-height: 8px;
+      border-radius: variables.$border-radius;
+      block {
+        background-color: variables.$bg-color;
+      }
+      block.filled {
+        background-color: lightgreen;
+      }
+    }
+    label {
+      margin: 0 3px;
+    }
   }
 }

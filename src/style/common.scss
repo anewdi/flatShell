@@ -2,46 +2,16 @@
 
 * {
   color: variables.$fg-color;
-  -gtk-icon-size: 13px;
   font-family: Cantarell;
   font-weight: normal;
   font-size: 13px;
+  -gtk-icon-size: 13px;
 }
 
 window {
-  border-radius: var(--window-radius);
   background-color: transparent;
 }
 
 button {
-  background-color: variables.$bg-color;
-  * {
-    background-color: transparent;
-  }
-  &:hover {
-    background-color: color-mix(in srgb, variables.$bg-secondary, white 10%);
-  }
-}
-
-.separator {
-  margin-top: 15px;
-}
-
-.bar {
-  background-color: variables.$bg-color;
-  border-radius: 0px;
-  padding: 0 8px;
-
-  label {
-    font-weight: bold;
-  }
-
-  #rightContainerBar > * {
-    padding: 0 3px;
-  }
-}
-
-.switchToggles button {
-  border-radius: 15px;
-  padding: 10px;
+  background-color: transparent;
 }

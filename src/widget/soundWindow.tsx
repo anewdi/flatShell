@@ -1,11 +1,10 @@
-import { Astal, Gtk } from "ags/gtk4";
+import { Gtk } from "ags/gtk4";
 import { execAsync } from "ags/process";
 import Wp from "gi://AstalWp";
-import { Accessor, createBinding, For, onCleanup } from "gnim";
+import { Accessor, createBinding, For } from "gnim";
 import { volumeSlider } from "./components/volumeSlider";
 import { Separator } from "./components/separator";
 import Pango from "gi://Pango?version=1.0";
-import Adw from "gi://Adw?version=1";
 import { Popup } from "./components/Popup";
 
 const wp = Wp.get_default();
@@ -41,8 +40,6 @@ export const soundWindow = (monitor: number = 0): JSX.Element =>
     <Popup
         name={"soundWindow"}
         monitor={monitor}
-        margin_end={50}
-        halign={Gtk.Align.END}
     >
         <centerbox class={"header"}>
             <label $type="start" label="Sound" />

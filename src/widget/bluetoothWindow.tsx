@@ -47,9 +47,7 @@ export const bluetoothWindow = (monitor: number = 0): JSX.Element =>
     <Popup
         name={"bluetoothWindow"}
         monitor={monitor}
-        margin_end={110}
-        halign={Gtk.Align.END}
-        visibleCb={(v: Gtk.Widget) => {
+        onNotifyVisible={(v: Gtk.Widget, _) => {
             if (v.visible && !bluetooth.adapter.discovering) {
                 bluetooth.adapter.start_discovery();
                 setTimeout(() => bluetooth.adapter.stop_discovery(), 10000)

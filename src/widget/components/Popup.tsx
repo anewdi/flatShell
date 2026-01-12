@@ -2,36 +2,27 @@ import { Astal, Gdk, Gtk } from "ags/gtk4";
 import Adw from "gi://Adw?version=1";
 import Graphene from "gi://Graphene?version=1.0";
 import { createState, onCleanup } from "gnim";
-import { togglePopup } from "../../lib/common";
 
 type PopupProps = JSX.IntrinsicElements["window"] & {
-    children: any;
-    monitor: number;
     name: string;
+    children: any;
     width?: number;
-    valign?: Gtk.Align;
-    halign?: Gtk.Align;
-    margin_start?: number;
-    orientation?: Gtk.Orientation;
-    margin_end?: number;
-    visibleCb?: (v: Gtk.Widget) => void;
-    overrideClass?: string;
     forceWidth?: boolean;
+    orientation?: Gtk.Orientation;
 };
 
 export function Popup({
-    children,
     name,
-    monitor,
+    children,
     width = 300,
-    valign = Gtk.Align.START,
-    halign = Gtk.Align.START,
-    orientation = Gtk.Orientation.VERTICAL,
-    margin_start = 0,
-    margin_end = 0,
     forceWidth = true,
-    overrideClass = "windowPopup",
-    visibleCb = ((v) => { }),
+    orientation = Gtk.Orientation.VERTICAL,
+    halign = Gtk.Align.END,
+    valign = Gtk.Align.START,
+    margin_top = 5,
+    margin_end = 40,
+    cssClasses = ["windowPopup"],
+    onNotifyVisible = (() => { }),
     ...props
 }: PopupProps): JSX.Element {
 
@@ -47,15 +38,15 @@ export function Popup({
     return <window
         {...props}
         visible={visible}
-        name={name + monitor}
-        monitor={monitor}
+        name={name + props.monitor}
+        monitor={props.monitor}
         layer={Astal.Layer.OVERLAY}
         keymode={Astal.Keymode.ON_DEMAND}
         anchor={Astal.WindowAnchor.TOP | Astal.WindowAnchor.RIGHT | Astal.WindowAnchor.BOTTOM | Astal.WindowAnchor.LEFT}
-        onNotifyVisible={(v: Gtk.Widget) => {
+        onNotifyVisible={(v: Astal.Window, _) => {
             if (v.visible) {
+                onNotifyVisible(v, _);
                 content.grab_focus();
-                visibleCb(v);
             }
         }}
         $={(self) => { init(self); onCleanup(() => self.destroy()); }} >
@@ -69,7 +60,7 @@ export function Popup({
 
         <Gtk.EventControllerKey onKeyPressed={({ widget }, keyval: number) => {
             if (keyval == Gdk.KEY_Escape) {
-                togglePopup(name);
+                widget.hide()
             }
         }} />
 
@@ -84,13 +75,16 @@ export function Popup({
             <Adw.Clamp
                 focusable={true}
                 maximum_size={width}
+                margin_bottom={props.margin_bottom}
+                margin_top={margin_top}
                 margin_end={margin_end}
-                margin_start={margin_start}
-                marginTop={5}
+                margin_start={props.margin_start}
                 $={(self) => { content = self }}
             >
-                <box class={overrideClass}
+                <box
+                    cssClasses={cssClasses}
                     orientation={orientation}
+                    halign={Gtk.Align.CENTER}
                     css={`min-width: ${forceWidth ? width : 0}px;`}
                 >
                     {children}

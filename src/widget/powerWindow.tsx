@@ -1,8 +1,8 @@
-import { Astal, Gtk } from "ags/gtk4";
+import { Gtk } from "ags/gtk4";
 import { execAsync } from "ags/process";
 import PoweProfiles from "gi://AstalPowerProfiles";
 import Batt from "gi://AstalBattery";
-import { createBinding, onCleanup } from "gnim";
+import { createBinding } from "gnim";
 import { Separator } from "./components/separator";
 import { Popup } from "./components/Popup";
 
@@ -40,8 +40,6 @@ export const powerWindow = (monitor: number = 0): JSX.Element =>
     <Popup
         name={`powerWindow`}
         monitor={monitor}
-        halign={Gtk.Align.END}
-        margin_end={10}
     >
         <centerbox class="header">
             <label $type="start" label="Power" />
@@ -58,8 +56,9 @@ export const powerWindow = (monitor: number = 0): JSX.Element =>
             <levelbar hexpand={true}
                 value={createBinding(batt, "percentage")}
                 orientation={Gtk.Orientation.HORIZONTAL} />
-            <centerbox>
-                <label $type="start" label={rate(pull => {
+            <Separator height={10} />
+            <box>
+                <label halign={Gtk.Align.START} label={rate(pull => {
                     if (pull > 0) {
                         return "Discharging - " + Math.round(pull) + "W";
                     }
@@ -69,8 +68,8 @@ export const powerWindow = (monitor: number = 0): JSX.Element =>
                         return "Charging - " + -Math.round(pull) + "W"
                     }
                 })} />
-                <label $type="end" label={percentage(p => (Math.floor(p * 100)).toString() + "%")} />
-            </centerbox>
+                <label hexpand={true} halign={Gtk.Align.END} label={percentage(p => (Math.floor(p * 100)).toString() + "%")} />
+            </box>
         </box>
         <Separator />
         <box orientation={Gtk.Orientation.VERTICAL} class={"body"}>

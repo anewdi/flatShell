@@ -1,25 +1,12 @@
 @use "./variables.scss";
 .mediaplayer {
-  margin: 0px;
-  margin-top: 20px;
-  padding: 0px;
-
-  * {
-    background-color: transparent;
-  }
-
   .coverArt {
     border-radius: 15px 15px 0px 0px;
     background-size: cover;
     background-position: center;
   }
 
-  .cover {
-    label,
-    image {
-      color: grey;
-    }
-
+  .coverDesc {
     border-radius: 15px 15px 0px 0px;
     padding: 10px;
     background-size: cover;
@@ -28,6 +15,11 @@
       color-mix(in srgb, variables.$bg-color 40%, variables.$fg-color 5%) 11%,
       color-mix(in srgb, variables.$bg-color 60%, variables.$fg-color 5%) 65%
     );
+
+    label,
+    image {
+      color: grey;
+    }
 
     .title {
       color: variables.$fg-color;
@@ -42,30 +34,23 @@
     }
   }
 
-  .hoverControls {
-    &,
-    * {
-      background-color: transparent;
-    }
-
-    button {
-      opacity: 0;
-    }
-
-    button:hover {
+  .hoverControls button {
+    opacity: 0;
+    &:hover {
       opacity: 1;
     }
   }
 
-  scale.position {
-    padding: 0;
+  scale {
+    padding: 0px;
+    min-height: 0px;
     trough {
+      border-radius: 0px 0px 15px 15px;
       min-height: 7px;
-      border-radius: 0px 0px 13px 13px;
       background-color: variables.$bg-secondary;
     }
     highlight {
-      border-radius: 0px 13px 13px 13px;
+      border-radius: 0px 15px 15px 15px;
       background-color: variables.$accent;
     }
     slider {

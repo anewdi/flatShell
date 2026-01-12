@@ -1,5 +1,5 @@
 import Wp from "gi://AstalWp";
-import { Accessor, createBinding, createComputed, createState } from "gnim";
+import { Accessor, createBinding, createComputed } from "gnim";
 
 const speaker = Wp.get_default().get_default_speaker();
 
@@ -23,8 +23,6 @@ function getIcon(v: number) {
 }
 
 const iName = createComputed(() => muted() ? `audio-volume-${icons[0]}-symbolic` : getIcon(vol()));
-
-const [volVal, setvolVal] = createState(vol.peek());
 
 export const volumeSlider = (): JSX.Element =>
     <box class={"slider"}>

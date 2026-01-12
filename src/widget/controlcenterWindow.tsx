@@ -17,11 +17,10 @@ export const controlcenterWindow = (monitor: number = 0): JSX.Element =>
     <Popup
         name={`controlcenterWindow`}
         monitor={monitor}
-        marginRight={10}
-        halign={Gtk.Align.END}
+        margin_end={10}
         width={330}
     >
-        <centerbox class={"header"}>
+        <centerbox class={"header controlcenterHeader"}>
             {batteryButton()}
             <box $type="end">
                 {recorderButton()}
@@ -36,9 +35,8 @@ export const controlcenterWindow = (monitor: number = 0): JSX.Element =>
                 </button>
             </box>
         </centerbox>
-        <Separator />
         {volumeSlider()}
-        <box css={"margin-top: 5px;"}></box>
+        <Separator height={2} />
         {brightnessSlider()}
         <Separator />
         <box orientation={Gtk.Orientation.VERTICAL} spacing={8} class={"switchToggles"}>
@@ -51,5 +49,6 @@ export const controlcenterWindow = (monitor: number = 0): JSX.Element =>
                 {darkmodeButton()}
             </box>
         </box>
+        <Separator height={20} />
         {mediaplayer()}
     </Popup >
