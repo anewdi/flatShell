@@ -16,6 +16,8 @@
     label {
       font-weight: bold;
     }
+
+    @include variables.hoverButton;
   }
 
   .controlcenterHeader {

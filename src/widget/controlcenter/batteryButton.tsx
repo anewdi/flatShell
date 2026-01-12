@@ -1,6 +1,7 @@
 import Batt from "gi://AstalBattery";
 import { createBinding, createComputed } from "gnim";
 import { togglePopup } from "../../lib/common";
+import Pango from "gi://Pango?version=1.0";
 const batt = Batt.get_default();
 
 const percent = createBinding(batt, "percentage")((p: number) => ` ${Math.floor(p * 100)}`);
@@ -20,6 +21,7 @@ export const batteryButton = () =>
                 <label label={percent(p => p + "%")} />
             </box>
             <label
+                ellipsize={Pango.EllipsizeMode.END}
                 label={createBinding(batt, "time_to_empty")(time => {
                     const mins = time / 60;
                     const hours = Math.floor(mins / 60);
