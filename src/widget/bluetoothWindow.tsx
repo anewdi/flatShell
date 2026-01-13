@@ -3,7 +3,7 @@ import { execAsync } from "ags/process";
 import Adw from "gi://Adw?version=1";
 import Bluetooth from "gi://AstalBluetooth";
 import Pango from "gi://Pango?version=1.0";
-import { Accessor, createBinding, createComputed, For } from "gnim";
+import { Accessor, createBinding, createComputed, createEffect, For } from "gnim";
 import { Popup } from "./components/Popup";
 
 const bluetooth = Bluetooth.get_default();
@@ -39,6 +39,7 @@ const deviceBase: Accessor<Bluetooth.Device[]> = createBinding(bluetooth, "devic
     .sort((a, b) => Number(b.paired) - Number(a.paired)
     ));
 
+
 const devices: Accessor<Bluetooth.Device[]> = createComputed(() => !conn() ? deviceBase() :
     deviceBase().sort((a, b) => Number(b.connected) - Number(a.connected)))
 
@@ -47,12 +48,7 @@ export const bluetoothWindow = (monitor: number = 0): JSX.Element =>
     <Popup
         name={"bluetoothWindow"}
         monitor={monitor}
-        onNotifyVisible={(v: Gtk.Widget, _) => {
-            if (v.visible && !bluetooth.adapter.discovering) {
-                bluetooth.adapter.start_discovery();
-                setTimeout(() => bluetooth.adapter.stop_discovery(), 10000)
-            }
-        }}>
+    >
         <box class={"header"} spacing={8}>
             <label halign={Gtk.Align.START} label="Bluetooth" />
             <box halign={Gtk.Align.END} hexpand={true}>
