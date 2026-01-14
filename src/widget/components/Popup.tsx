@@ -2,6 +2,7 @@ import { Astal, Gdk, Gtk } from "ags/gtk4";
 import Adw from "gi://Adw?version=1";
 import Graphene from "gi://Graphene?version=1.0";
 import { createState, onCleanup } from "gnim";
+import { currentMon } from "../../../app";
 
 type PopupProps = JSX.IntrinsicElements["window"] & {
     name: string;
@@ -9,11 +10,10 @@ type PopupProps = JSX.IntrinsicElements["window"] & {
     width?: number;
     forceWidth?: boolean;
     orientation?: Gtk.Orientation;
+    gdkmonitor: Gdk.Monitor;
 };
 
 export function Popup({
-    name,
-    children,
     width = 330,
     forceWidth = true,
     orientation = Gtk.Orientation.VERTICAL,
@@ -31,15 +31,14 @@ export function Popup({
 
     const show = () => { setVisible(true); setRevealed(true); }
     const hide = () => { setRevealed(false); }
-    const init = (self: Gtk.Window) => { Object.assign(self, { show, hide }) }
 
     let content: Adw.Clamp;
 
     return <window
         {...props}
         visible={visible}
-        name={name + props.monitor}
-        monitor={props.monitor}
+        name={props.name + currentMon}
+        gdkmonitor={props.gdkmonitor}
         layer={Astal.Layer.OVERLAY}
         keymode={Astal.Keymode.ON_DEMAND}
         anchor={Astal.WindowAnchor.TOP | Astal.WindowAnchor.RIGHT | Astal.WindowAnchor.BOTTOM | Astal.WindowAnchor.LEFT}
@@ -49,7 +48,8 @@ export function Popup({
                 content.grab_focus();
             }
         }}
-        $={(self) => { init(self); onCleanup(() => self.destroy()); }} >
+        $={(self) => { Object.assign(self, { hide, show }); onCleanup(() => self.destroy()); }}
+    >
 
         <Gtk.GestureClick onPressed={({ widget }, _, x, y) => {
             const [, rect] = content.compute_bounds(widget);
@@ -84,7 +84,7 @@ export function Popup({
                 $={(self) => { content = self }}
             >
                 <box hexpand={true} cssClasses={cssClasses} orientation={orientation} >
-                    {children}
+                    {props.children}
                 </box>
             </Adw.Clamp>
         </revealer>

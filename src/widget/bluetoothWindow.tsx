@@ -1,4 +1,4 @@
-import { Gtk } from "ags/gtk4";
+import { Gdk, Gtk } from "ags/gtk4";
 import { execAsync } from "ags/process";
 import Adw from "gi://Adw?version=1";
 import Bluetooth from "gi://AstalBluetooth";
@@ -44,10 +44,10 @@ const devices: Accessor<Bluetooth.Device[]> = createComputed(() => !conn() ? dev
     deviceBase().sort((a, b) => Number(b.connected) - Number(a.connected)))
 
 
-export const bluetoothWindow = (monitor: number = 0): JSX.Element =>
+export const bluetoothWindow = (monitor: Gdk.Monitor): JSX.Element =>
     <Popup
         name={"bluetoothWindow"}
-        monitor={monitor}
+        gdkmonitor={monitor}
     >
         <box class={"header"} spacing={8}>
             <label halign={Gtk.Align.START} label="Bluetooth" />

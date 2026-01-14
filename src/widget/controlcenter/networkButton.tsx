@@ -26,7 +26,7 @@ export const networkButton = () =>
             <box spacing={8}>
                 <image
                     iconName={createBinding(wifi, "iconName")} />
-                <label label={createBinding(wifi, "internet")(a => a == Network.Internet.CONNECTED ? wifi.ssid : "Wifi")} />
+                <label label={createBinding(wifi, "internet")(a => a == Network.Internet.CONNECTED ? wifi.ssid ? wifi.ssid : "Wifi" : "Wifi")} />
             </box>
         </button>
     </stack >

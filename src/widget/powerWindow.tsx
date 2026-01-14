@@ -1,4 +1,4 @@
-import { Gtk } from "ags/gtk4";
+import { Gdk, Gtk } from "ags/gtk4";
 import { execAsync } from "ags/process";
 import PoweProfiles from "gi://AstalPowerProfiles";
 import Batt from "gi://AstalBattery";
@@ -33,13 +33,24 @@ const powerbox = (profile: PoweProfiles.Profile) => {
 }
 
 const percentage = createBinding(batt, "percentage");
-const rate = createBinding(batt, "energy_rate");
+const pullString = createBinding(batt, "energy_rate")(pull => {
+    if (pull > 0) {
+        return "Discharging - " + Math.round(pull) + "W";
+    }
+    else if (pull == 0) {
+        return "External Power";
+    } else {
+        return "Charging - " + -Math.round(pull) + "W"
+    }
+});
+const statusLabel = percentage(p => (Math.floor(p * 100)).toString() + "%");
 
 
-export const powerWindow = (monitor: number = 0): JSX.Element =>
+
+export const powerWindow = (monitor: Gdk.Monitor): JSX.Element =>
     <Popup
         name={`powerWindow`}
-        monitor={monitor}
+        gdkmonitor={monitor}
     >
         <centerbox class="header">
             <label $type="start" label="Power" />
@@ -53,22 +64,11 @@ export const powerWindow = (monitor: number = 0): JSX.Element =>
             </box>
         </centerbox>
         <box orientation={Gtk.Orientation.VERTICAL} class={"batterybar"}>
-            <levelbar hexpand={true}
-                value={createBinding(batt, "percentage")}
-                orientation={Gtk.Orientation.HORIZONTAL} />
+            <levelbar hexpand={true} value={percentage} />
             <Separator height={10} />
             <box>
-                <label halign={Gtk.Align.START} label={rate(pull => {
-                    if (pull > 0) {
-                        return "Discharging - " + Math.round(pull) + "W";
-                    }
-                    else if (pull == 0) {
-                        return "External Power";
-                    } else {
-                        return "Charging - " + -Math.round(pull) + "W"
-                    }
-                })} />
-                <label hexpand={true} halign={Gtk.Align.END} label={percentage(p => (Math.floor(p * 100)).toString() + "%")} />
+                <label halign={Gtk.Align.START} label={pullString} />
+                <label hexpand={true} halign={Gtk.Align.END} label={statusLabel} />
             </box>
         </box>
         <Separator />

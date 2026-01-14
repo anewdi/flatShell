@@ -1,6 +1,7 @@
 import Wp from "gi://AstalWp"
 import { createBinding, createComputed } from "gnim"
 import { togglePopup } from "../lib/common";
+import { currentMon } from "../../app";
 
 const default_speaker = Wp.get_default().audio.default_speaker;
 
@@ -25,8 +26,12 @@ function getIcon(v: number) {
 
 const iName = createComputed(() => muted() ? `audio-volume-${icons[0]}-symbolic` : getIcon(vol()));
 
-export const volume = (): JSX.Element =>
-    <button onClicked={() => togglePopup("soundWindow")}>
+export const volume = (): JSX.Element => {
+    const tempmon = currentMon;
+
+    return <button onClicked={() => togglePopup("soundWindow" + tempmon)}>
         <image iconName={iName} />
     </button>;
+
+}
 

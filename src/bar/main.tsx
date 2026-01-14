@@ -1,4 +1,4 @@
-import { Astal, Gtk } from "ags/gtk4"
+import { Astal, Gdk, Gtk } from "ags/gtk4"
 import { workspaces } from "./workspaces"
 import { clock } from "./clock"
 import { battery } from "./battery"
@@ -10,17 +10,15 @@ import { onCleanup } from "gnim"
 
 const { TOP, LEFT, RIGHT } = Astal.WindowAnchor;
 
-
-export const bar = (monitor: number = 0): JSX.Element =>
+export const bar = (monitor: Gdk.Monitor): JSX.Element =>
     < window
-        name={"bar" + monitor}
-        monitor={monitor}
+        gdkmonitor={monitor}
         exclusivity={Astal.Exclusivity.EXCLUSIVE}
         visible={true}
         anchor={LEFT | TOP | RIGHT}
         $={(self) => onCleanup(() => self.destroy())}
     >
-        <box hexpand={true} cssClasses={["bar"]}>
+        <box cssClasses={["bar"]}>
             <box>
                 {workspaces()}
             </box>

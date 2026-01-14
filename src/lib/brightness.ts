@@ -1,8 +1,10 @@
 import { monitorFile } from "ags/file";
 import { exec, execAsync } from "ags/process";
 import GObject, { getter, register, setter, } from "gnim/gobject";
+import Hyprland from "gi://AstalHyprland?version=0.1";
 
 const get = (args: string) => Number(exec(`brightnessctl ${args}`))
+
 @register()
 export default class Brightness extends GObject.Object {
     static instance: Brightness;
@@ -16,15 +18,18 @@ export default class Brightness extends GObject.Object {
 
         // setup monitor
         const brightness = `/sys/class/backlight/${this.#interface}/brightness`;
-        const enabled = `/sys/class/backlight/${this.#interface}/device/enabled`;
         monitorFile(brightness, () => this.#changeBrightness());
-        monitorFile(enabled, () => this.#changeEnabled());
+
+        //We remove windows when monitor disabled.
+        //Monitoring file does not work properly cause kernel does not modify metadata when changing conents of /device/enabled file.
+        Hyprland.get_default().connect("monitor-removed", () => this.#changeEnabled());
+        Hyprland.get_default().connect("monitor-added", () => this.#changeEnabled());
 
         this.#changeBrightness()
         this.#changeEnabled()
     }
 
-    #interface = exec("sh -c 'ls -w1 /sys/class/backlight | head -1'");
+    #interface = exec(`sh -c "ls  -w1 /sys/class/backlight | head -1"`);
     #max = get("max")
     #enabled = false;
     #screenValue = 0;
@@ -51,9 +56,8 @@ export default class Brightness extends GObject.Object {
 
     #changeEnabled() {
         this.#enabled = exec(
-            `sh -c 'cat /sys/class/backlight/${this.#interface}/device/enabled'`,
+            `cat /sys/class/backlight/${this.#interface}/device/enabled`,
         ) == "enabled";
-
     }
 
     #changeBrightness() {

@@ -1,4 +1,4 @@
-import { Gtk } from "ags/gtk4";
+import { Gdk, Gtk } from "ags/gtk4";
 import { execAsync } from "ags/process";
 import Wp from "gi://AstalWp";
 import { Accessor, createBinding, For } from "gnim";
@@ -16,10 +16,11 @@ const speakerButton = (endpoint: Wp.Endpoint): JSX.Element => {
     }
     const iconname = device.icon.split("-");
     const iconstring = iconname[0] + "-" + iconname[1] + "-symbolic";
-    const active = createBinding(endpoint, "is_default");
+    const className = createBinding(endpoint, "is_default")(b => b ? "activeButton" : "");
+    const volume = createBinding(endpoint, "volume")((v) => Math.round(v * 100) + "%");
 
     return <button
-        class={active(b => b ? "activeButton" : "")}
+        class={className}
         onClicked={() => endpoint.set_is_default(true)}
     >
         <box spacing={8}>
@@ -28,7 +29,7 @@ const speakerButton = (endpoint: Wp.Endpoint): JSX.Element => {
                 <label ellipsize={Pango.EllipsizeMode.END} label={device.description} />
             </box>
             <stack halign={Gtk.Align.END} hexpand={true}>
-                <label label={createBinding(endpoint, "volume")((v) => Math.round(v * 100) + "%")} />
+                <label label={volume} />
             </stack>
         </box >
     </button >;
@@ -36,10 +37,11 @@ const speakerButton = (endpoint: Wp.Endpoint): JSX.Element => {
 
 const speakers = createBinding(wp.audio, "speakers")(speakers => speakers.filter(speaker => speaker.get_device()));
 
-export const soundWindow = (monitor: number = 0): JSX.Element =>
+
+export const soundWindow = (monitor: Gdk.Monitor): JSX.Element =>
     <Popup
         name={"soundWindow"}
-        monitor={monitor}
+        gdkmonitor={monitor}
     >
         <centerbox class={"header"}>
             <label $type="start" label="Sound" />

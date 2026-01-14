@@ -19,8 +19,8 @@
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
-      pname = "my-shell";
-      entry = "app.ts";
+      pname = "flatShell";
+      entry = "app.tsx";
 
       astalPackages = with ags.packages.${system}; [
         hyprland
@@ -30,6 +30,7 @@
         wireplumber
         bluetooth
         powerprofiles
+        notifd
         mpris
         astal4
       ];

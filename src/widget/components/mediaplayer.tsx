@@ -5,7 +5,6 @@ import { createBinding, For } from "gnim";
 
 const mpris = Mpris.get_default();
 
-const FALLBACK_ICON = "audio-x-generic-symbolic";
 const PLAY_ICON = "media-playback-start-symbolic";
 const PAUSE_ICON = "media-playback-pause-symbolic";
 const PREV_ICON = "media-skip-backward-symbolic";
@@ -37,7 +36,7 @@ const mplayer = (player: Mpris.Player) =>
                         <image halign={Gtk.Align.END} hexpand={true} iconName={createBinding(player, "entry")(e => e == "zen" ? "firefox-symbolic" : e + "-symbolic")} />
                     </box>
                     <box>
-                        <label halign={Gtk.Align.START} class={"artist"} label={createBinding(player, "artist")} />
+                        <label halign={Gtk.Align.START} class={"artist"} label={createBinding(player, "artist")} wrap={true} />
                     </box>
                     <centerbox vexpand={true} valign={Gtk.Align.END}>
                         <label $type="start" label={createBinding(player, "position")(p => lengthStr(p))} />

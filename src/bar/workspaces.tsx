@@ -1,3 +1,4 @@
+import { Gtk } from "ags/gtk4";
 import Hyprland from "gi://AstalHyprland"
 import { createBinding, createComputed } from "gnim"
 

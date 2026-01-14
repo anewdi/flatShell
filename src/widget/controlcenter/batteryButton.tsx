@@ -13,8 +13,9 @@ const iconName = createComputed(() => charging() ?
     `battery-level-${Math.floor(Number(percent()) / 10) * 10}-symbolic`);
 
 export const batteryButton = () =>
-    <button $type="start"
-        onClicked={() => togglePopup("powerWindow")}>
+    <button
+        onClicked={() => togglePopup("powerWindow")}
+    >
         <box spacing={5}>
             <box>
                 <image iconName={iconName} />

@@ -1,4 +1,4 @@
-import { Gtk } from "ags/gtk4";
+import { Gdk, Gtk } from "ags/gtk4";
 import { execAsync } from "ags/process";
 import Adw from "gi://Adw?version=1";
 import Network from "gi://AstalNetwork";
@@ -41,12 +41,21 @@ const apsBase = createBinding(wifi, "accessPoints")(aps => {
     const named = aps.filter(a => a.ssid);
     const ssids: Record<string, Network.AccessPoint> = {};
 
-    named.forEach(s => {
-        if (ssids[s.ssid] != undefined && s != wifi.active_access_point) {
-            return;
-        }
-        ssids[s.ssid] = s
-    });
+    if (wifi.active_access_point) {
+        named.forEach(s => {
+            if (ssids[s.ssid] != undefined && s != wifi.active_access_point) {
+                return;
+            }
+            ssids[s.ssid] = s
+        });
+    } else {
+        named.forEach(s => {
+            if (ssids[s.ssid] != undefined && s.strength < ssids[s.ssid].strength) {
+                return;
+            }
+            ssids[s.ssid] = s
+        });
+    }
 
     return named
         .filter(a => ssids[a.ssid] == a)
@@ -58,10 +67,10 @@ const aps = createComputed(() => internet() != Network.Internet.CONNECTED ? apsB
 );
 
 
-export const networkWindow = (monitor: number = 0): JSX.Element =>
+export const networkWindow = (monitor: Gdk.Monitor): JSX.Element =>
     <Popup
         name={"networkWindow"}
-        monitor={monitor}
+        gdkmonitor={monitor}
         onNotifyVisible={(v: Gtk.Widget) => { if (v.visible) wifi.scan() }}
     >
         <centerbox class={"header"}>

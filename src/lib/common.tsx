@@ -1,17 +1,10 @@
 import { Gtk } from "ags/gtk4";
 import app from "ags/gtk4/app";
-import Hyprland from "gi://AstalHyprland"
 
-const hyprland = Hyprland.get_default();
 let openWindow: Gtk.Window | undefined;
 
 export function togglePopup(name: string) {
-    const monitor = hyprland.monitors.find((monitor) => monitor.focused == true);
-    if (!monitor) {
-        return;
-    }
-    const mon = monitor.id;
-    const newWindow: Gtk.Window | undefined = app.get_window(name + mon);
+    const newWindow: Gtk.Window | undefined = app.get_window(name);
 
     if (newWindow) {
         if (openWindow == newWindow) {

@@ -1,6 +1,7 @@
 import AstalBattery from "gi://AstalBattery"
 import { createBinding, createComputed } from "gnim"
 import { togglePopup } from "../lib/common";
+import { currentMon } from "../../app";
 
 const batt = AstalBattery.get_default();
 
@@ -15,11 +16,14 @@ const iconName = createComputed(() => charging() ?
     `battery-level-${Math.floor(Number(percent()) / 10) * 10}-symbolic`);
 
 
-export const battery = (): JSX.Element =>
-    <button name={"batteryButton"} onClicked={() => togglePopup("powerWindow")}>
+export const battery = (): JSX.Element => {
+    const tempmon = currentMon;
+
+    return <button name={"batteryButton"} onClicked={() => togglePopup("powerWindow" + tempmon)}>
         <box>
             <image iconName={iconName} />
             <label label={percent(p => p + "%")} />
         </box>
     </button>;
+}
 
