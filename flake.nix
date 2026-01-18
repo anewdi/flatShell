@@ -28,6 +28,7 @@
       packages.${system}.default = pkgs.stdenv.mkDerivation {
         version = "2.0.0";
         pname = "flatShell";
+        meta.mainProgram = "flatShell";
         src = ./.;
 
         nativeBuildInputs = with pkgs; [
@@ -58,6 +59,7 @@
                   wf-recorder
                   networkmanagerapplet
                   playerctl
+                  glib
                 ]
               )
             }
