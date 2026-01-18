@@ -2,9 +2,9 @@
 
 Bar and widgets made with ags. 
 
-Wallpaper can be found [here](https://github.com/anewdi/wallz) (mtfuji.png)
+Wallpaper can be found [here](https://github.com/anewdi/wallz/mtfuji.png).
 
-The dark mode and accent colors work through gsettings. If you have gnome control center you can change them from there.
+The dark mode and accent colors follow what is set in `dconf`. If you have gnome control center you can change them from there. Otherwise you can use something like `dconf-editor` or `gsettings`
 
 ## Nix
 The project is packaged for nix. You can run the shell with `nix run github:anewdi/flatShell`.
@@ -51,7 +51,7 @@ Then you can either add it to your packages or setup a systemd service:
   home.packages = [inputs.flatShell.packages.${pkgs.stdenv.hostPlatform.system}.default];
 
   #Systemd service
-  systemd.user.services.nightlight = {
+  systemd.user.services.flatShell = {
     Unit = {
       Description = "flatShell service";
     };
@@ -65,8 +65,7 @@ Then you can either add it to your packages or setup a systemd service:
 ```
 
 ## Requirements
-
-Below is a list of requirements for the specific widgets/functions to work as intended
+Below is a list of requirements for the specific widgets/functions to work as intended:
 * *: [moreWaita](https://github.com/somepaulo/MoreWaita) icons is pretty nice for stuff like spotify icon.
 * Wifi: `networkmanager`, `nm-applet`(for authentication window)
 * Workspaces: `hyprland`
@@ -77,7 +76,7 @@ Below is a list of requirements for the specific widgets/functions to work as in
 * Powerprofiles: `power-profiles-daemon`
 * Recorder: `wf-recorder` ([gtksave](https://github.com/anewdi/gtksave) is optional. I just gives fileDialog instead of predefined save location)
 * Nightlight: Should work with (stop/start/status) any systemd user service named "nightlight". Obviously you can also change this in the code.
-* DarkMode: `gsettings-dekstop-scemas`
+* Dark/light mode switching: `gsettings`
 
 ### Gnome control center
 `gnome-control-center` is neccessary for settings icon to work. On any given widget it tries to open gnome control center at the section corresponding to the widget function(bluetooth widget -> gnome bluetooth page). 
