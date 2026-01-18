@@ -4,6 +4,8 @@ Bar and widgets made with ags.
 
 Wallpaper can be found [here](https://github.com/anewdi/wallz) (mtfuji.png)
 
+The dark mode and accent colors work through gsettings. If you have gnome control center you can change them from there.
+
 ## Requirements
 
 Below is a list of requirements for the specific widgets/functions to work as intended
@@ -20,6 +22,8 @@ Below is a list of requirements for the specific widgets/functions to work as in
 
 ### Gnome control center
 `gnome-control-center` is neccessary for settings icon to work. On any given widget it tries to open gnome control center at the section corresponding to the widget function(bluetooth widget -> gnome bluetooth page). 
+
+To use gnome-control-center with a windowmanager like `hyprland` you should modify it's desktop entry such that it launches with `env XDG_CURRENT_DESKTOP=gnome` set. This is manually done in the code for the widgets(iow the buttons will work as long as gnome-control-center is installed).
 
 #### Gnome control center bluetooh
 For gnome bluetooth to work you need to have `gsd-rfkill` running. It is a part of `gnome-settings-daemon`. Personally, I have a systemd user service that launches it along with my graphical environement: 
