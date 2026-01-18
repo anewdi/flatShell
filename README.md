@@ -7,7 +7,7 @@ Wallpaper can be found [here](https://github.com/anewdi/wallz) (mtfuji.png)
 ## Requirements
 
 Below is a list of requirements for the specific widgets/functions to work as intended
-
+* *: [moreWaita](https://github.com/somepaulo/MoreWaita) icons is pretty nice for stuff like spotify icon.
 * Wifi: `networkmanager`, `nm-applet`(for authentication window)
 * Workspaces: `hyprland`
 * Keymap: `jq`, `hyprland` - reacts to external changes automatically and cycles on click.
@@ -47,5 +47,4 @@ I have two types of powermenu, `powermenuwindow` and `powermenuRightWindow`. On 
 If you do not want firefox to show in media playing widget (and dont want to change the code), you can set the following setting in firefox(about:config): `media.hardwaremediakeys.enabled = false`
 
 ## Video preview
-
-https://github.com/user-attachments/assets/4e67e22d-a67b-418b-b752-07f591a1ee18
+https://github.com/user-attachments/assets/ad95d2f4-4b5b-40ff-baf3-4bbbffe0ca25
