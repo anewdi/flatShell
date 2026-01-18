@@ -1,7 +1,7 @@
 import AstalBattery from "gi://AstalBattery"
 import { createBinding, createComputed } from "gnim"
-import { togglePopup } from "../lib/common";
 import { currentMon } from "../../app";
+import { togglePopup } from "../lib/common";
 
 const batt = AstalBattery.get_default();
 

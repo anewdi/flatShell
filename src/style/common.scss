@@ -21,3 +21,8 @@ separator {
   padding: 0.5px;
   border-radius: 10px;
 }
+
+scrolledwindow,
+scrolledwindow > * {
+  all: unset;
+}

@@ -1,27 +1,33 @@
 import { Astal, Gdk, Gtk } from "ags/gtk4";
 import Adw from "gi://Adw?version=1";
 import Notifd from "gi://AstalNotifd";
-import { createBinding, createState, For, onCleanup } from "gnim";
-import { notification } from "./components/notification";
+import { Accessor, createBinding, createComputed, createState, For, onCleanup } from "gnim";
+import { notification } from "../components/notification";
 
 const notifd = Notifd.get_default();
 notifd.default_timeout = 4000;
 
-// array with only most recent notification
-const notifications = createBinding(notifd, "notifications")(n => {
-    if (n.length == 0 || notifd.dont_disturb) {
+const notifications = createBinding(notifd, "notifications");
+//Instead of dismissing notifications when clicking "x" we just dont show them on overlay anymore
+//They can be removed completely from controlcenter
+const [seen, setSeen] = createState([new Notifd.Notification])
+
+const notificationsFiltered = createComputed(() => {
+    const notificationsLocal = notifications().filter((n) => !seen().includes(n));
+
+    if (notificationsLocal.length == 0 || notifd.dont_disturb) {
         hide();
-        return n;
+        return notificationsLocal;
     }
+
     show();
-    return [n.sort((a, b) => b.time - a.time)[0]];
+    return [notificationsLocal.sort((a: Notifd.Notification, b: Notifd.Notification) => b.time - a.time)[0]];
 });
 
 const [visible, setVisible] = createState(false);
 const [revealed, setRevealed] = createState(false);
 const show = () => { setVisible(true); setRevealed(true); }
 const hide = () => { setRevealed(false); }
-
 
 export const notificationOverlay = (monitor: Gdk.Monitor) =>
     < window
@@ -42,8 +48,14 @@ export const notificationOverlay = (monitor: Gdk.Monitor) =>
                 margin_top={5}
             >
                 <box orientation={Gtk.Orientation.VERTICAL} hexpand={true} class={"notificationOverlay"}>
-                    <For each={notifications}>
-                        {(item, _) => notification(item, () => hide())}
+                    <For each={notificationsFiltered}>
+                        {(item, _) => notification(item, () => {
+                            item.connect("resolved", () => setSeen(s => {
+                                s.splice(s.indexOf(item), 1)
+                                return s; // We return same refrence so it wont issue update. This is fine
+                            }));
+                            setSeen(s => s.concat(item));
+                        })}
                     </For>
                 </box>
             </Adw.Clamp>

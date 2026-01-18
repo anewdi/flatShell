@@ -3,7 +3,7 @@ import { execAsync } from "ags/process";
 import Adw from "gi://Adw?version=1";
 import Network from "gi://AstalNetwork";
 import { createBinding, createComputed, For } from "gnim";
-import { Popup } from "./components/Popup";
+import { Popup } from "./Popup";
 
 const wifi = Network.get_default().wifi;
 

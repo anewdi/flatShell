@@ -49,6 +49,18 @@
   }
 }
 
-.notifications .notification {
-  background-color: variables.$bg-secondary;
+.notifications {
+  .header {
+    margin: 5px;
+    margin-top: 0px;
+    label {
+      font-weight: bold;
+    }
+
+    @include variables.hoverButton;
+  }
+
+  .notification {
+    background-color: variables.$bg-secondary;
+  }
 }

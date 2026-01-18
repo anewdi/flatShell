@@ -1,7 +1,8 @@
 import { monitorFile } from "ags/file";
 import { exec, execAsync } from "ags/process";
 import GObject, { getter, register, setter, } from "gnim/gobject";
-import Hyprland from "gi://AstalHyprland?version=0.1";
+import app from "ags/gtk4/app";
+import { createBinding } from "gnim";
 
 const get = (args: string) => Number(exec(`brightnessctl ${args}`))
 
@@ -20,10 +21,8 @@ export default class Brightness extends GObject.Object {
         const brightness = `/sys/class/backlight/${this.#interface}/brightness`;
         monitorFile(brightness, () => this.#changeBrightness());
 
-        //We remove windows when monitor disabled.
         //Monitoring file does not work properly cause kernel does not modify metadata when changing conents of /device/enabled file.
-        Hyprland.get_default().connect("monitor-removed", () => this.#changeEnabled());
-        Hyprland.get_default().connect("monitor-added", () => this.#changeEnabled());
+        createBinding(app, "monitors")(() => this.#changeEnabled)
 
         this.#changeBrightness()
         this.#changeEnabled()

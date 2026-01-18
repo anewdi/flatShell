@@ -3,8 +3,8 @@ import { execAsync } from "ags/process";
 import PoweProfiles from "gi://AstalPowerProfiles";
 import Batt from "gi://AstalBattery";
 import { createBinding } from "gnim";
-import { Separator } from "./components/separator";
-import { Popup } from "./components/Popup";
+import { Separator } from "../components/separator";
+import { Popup } from "./Popup";
 
 const powerprofiles = PoweProfiles.get_default();
 const batt = Batt.get_default();
@@ -65,7 +65,7 @@ export const powerWindow = (monitor: Gdk.Monitor): JSX.Element =>
         </centerbox>
         <box orientation={Gtk.Orientation.VERTICAL} class={"batterybar"}>
             <levelbar hexpand={true} value={percentage} />
-            <Separator height={10} />
+            <Separator size={10} />
             <box>
                 <label halign={Gtk.Align.START} label={pullString} />
                 <label hexpand={true} halign={Gtk.Align.END} label={statusLabel} />

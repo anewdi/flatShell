@@ -2,10 +2,10 @@ import { Gdk, Gtk } from "ags/gtk4";
 import { execAsync } from "ags/process";
 import Wp from "gi://AstalWp";
 import { Accessor, createBinding, For } from "gnim";
-import { volumeSlider } from "./components/volumeSlider";
-import { Separator } from "./components/separator";
+import { volumeSlider } from "../components/volumeSlider";
+import { Separator } from "../components/separator";
 import Pango from "gi://Pango?version=1.0";
-import { Popup } from "./components/Popup";
+import { Popup } from "./Popup";
 
 const wp = Wp.get_default();
 

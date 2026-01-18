@@ -2,7 +2,8 @@ import { Astal, Gdk, Gtk } from "ags/gtk4";
 import Adw from "gi://Adw?version=1";
 import Graphene from "gi://Graphene?version=1.0";
 import { createState, onCleanup } from "gnim";
-import { currentMon } from "../../../app";
+import { currentMon } from "../../app";
+import { hideAll } from "../lib/common";
 
 type PopupProps = JSX.IntrinsicElements["window"] & {
     name: string;
@@ -14,7 +15,7 @@ type PopupProps = JSX.IntrinsicElements["window"] & {
 };
 
 export function Popup({
-    width = 330,
+    width = 310,
     forceWidth = true,
     orientation = Gtk.Orientation.VERTICAL,
     halign = Gtk.Align.END,
@@ -32,7 +33,7 @@ export function Popup({
     const show = () => { setVisible(true); setRevealed(true); }
     const hide = () => { setRevealed(false); }
 
-    let content: Adw.Clamp;
+    let content: Gtk.Widget;
 
     return <window
         {...props}
@@ -54,13 +55,13 @@ export function Popup({
         <Gtk.GestureClick onPressed={({ widget }, _, x, y) => {
             const [, rect] = content.compute_bounds(widget);
             if (!rect.contains_point(new Graphene.Point({ x, y }))) {
-                setRevealed(false);
+                hideAll();
             };
         }} />
 
-        <Gtk.EventControllerKey onKeyPressed={({ widget }, keyval: number) => {
+        <Gtk.EventControllerKey onKeyPressed={({ }, keyval: number) => {
             if (keyval == Gdk.KEY_Escape) {
-                widget.hide()
+                hideAll()
             }
         }} />
 

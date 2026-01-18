@@ -3,8 +3,8 @@ import { execAsync } from "ags/process";
 import Adw from "gi://Adw?version=1";
 import Bluetooth from "gi://AstalBluetooth";
 import Pango from "gi://Pango?version=1.0";
-import { Accessor, createBinding, createComputed, createEffect, For } from "gnim";
-import { Popup } from "./components/Popup";
+import { Accessor, createBinding, createComputed, For } from "gnim";
+import { Popup } from "./Popup";
 
 const bluetooth = Bluetooth.get_default();
 
@@ -22,11 +22,10 @@ const deviceButton = (device: Bluetooth.Device): JSX.Element => {
         <box spacing={8}>
             <label halign={Gtk.Align.START} ellipsize={Pango.EllipsizeMode.END} label={device.alias} />
             <stack halign={Gtk.Align.END} hexpand={true} visibleChildName={connecting(b => b ? "connecting" : "state")}>
-
                 <box $type="named" name={"connecting"} halign={Gtk.Align.END}>
                     <Adw.Spinner />
                 </box>
-                <label $type="named" name="state" label={state} />
+                <label $type="named" name={"state"} label={state} />
             </stack>
         </box>
     </button >;

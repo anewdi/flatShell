@@ -1,4 +1,4 @@
-import Brightness from "../../lib/brightness";
+import Brightness from "../lib/brightness";
 import { Accessor, createBinding, } from "gnim";
 
 const brightness = Brightness.get_default();

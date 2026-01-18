@@ -5,11 +5,6 @@
   border-radius: variables.$border-radius;
   padding: 15px;
 
-  scrolledwindow,
-  scrolledwindow > * {
-    all: unset;
-  }
-
   .header {
     margin: 5px;
     margin-top: 0px;
@@ -18,10 +13,6 @@
     }
 
     @include variables.hoverButton;
-  }
-
-  .controlcenterHeader {
-    margin-left: 0px;
   }
 
   .body {
@@ -44,45 +35,12 @@
         border: none;
       }
     }
+
     @include variables.hoverButton;
     @include variables.activeButton;
 
     stack > label {
       color: grey;
-    }
-  }
-
-  .switchToggles {
-    button {
-      padding: 10px;
-      border-radius: 10px;
-      background-color: variables.$bg-secondary;
-    }
-    @include variables.hoverButton;
-    @include variables.activeButton;
-  }
-
-  .batterybar {
-    background-color: variables.$bg-secondary;
-    border-radius: variables.$border-radius;
-    padding: 12px;
-
-    label {
-      color: grey;
-    }
-
-    levelbar trough {
-      min-height: 8px;
-      border-radius: variables.$border-radius;
-      block {
-        background-color: variables.$bg-color;
-      }
-      block.filled {
-        background-color: lightgreen;
-      }
-    }
-    label {
-      margin: 0 3px;
     }
   }
 }

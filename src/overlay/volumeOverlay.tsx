@@ -1,5 +1,5 @@
 import { Astal, Gdk, Gtk } from "ags/gtk4";
-import { volumeSlider } from "./components/volumeSlider"
+import { volumeSlider } from "../components/volumeSlider"
 import Wp from "gi://AstalWp";
 import GLib from "gi://GLib?version=2.0";
 import { createState, onCleanup } from "gnim";
@@ -9,10 +9,16 @@ const [revealed, setRevealed] = createState(false);
 const [visible, setVisible] = createState(false);
 const show = () => { setVisible(true); setRevealed(true); }
 const hide = () => { setRevealed(false); }
+
 let timeout: GLib.Source;
+let lastValue = speaker.volume;
 
 export const volumeOverlay = (monitor: Gdk.Monitor) => {
     speaker.connect("notify::volume", () => {
+        if (Math.abs(speaker.volume - lastValue) > 1) {
+            return;
+        }
+        lastValue = speaker.volume;
         if (timeout) {
             clearTimeout(timeout);
         }
@@ -24,7 +30,7 @@ export const volumeOverlay = (monitor: Gdk.Monitor) => {
         gdkmonitor={monitor}
         anchor={Astal.WindowAnchor.TOP}
         visible={visible}
-        $={(self) => { Object.assign(self, { hide, show }); onCleanup(() => self.destroy()) }}
+        $={(self) => { Object.assign(self, { hide, show }); onCleanup(() => self.destroy()); }}
     >
         <revealer
             reveal_child={revealed}
