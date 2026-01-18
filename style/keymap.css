@@ -1,9 +1,0 @@
-.keymap {
-  background-color: white;
-  margin: 4px;
-  border-radius: 4px;
-}
-.keymap > label {
-  font-size: 0.8em;
-  color: @bg;
-}

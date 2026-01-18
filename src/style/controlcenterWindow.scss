@@ -1,0 +1,29 @@
+@use "./variables.scss";
+
+.controlcenterWindow {
+  padding: 0px;
+
+  clamp > * {
+    padding: 15px;
+  }
+
+  separator {
+    margin: 15px 0px;
+  }
+
+  .switchToggles {
+    button {
+      padding: 10px;
+      border-radius: 10px;
+      background-color: variables.$bg-secondary;
+    }
+    @include variables.hoverButton;
+    @include variables.activeButton;
+  }
+
+  .rec {
+    background-color: variables.$bg-secondary;
+    border-radius: 15px;
+    padding-left: 10px;
+  }
+}

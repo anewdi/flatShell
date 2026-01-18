@@ -1,0 +1,66 @@
+@use "./variables.scss";
+
+.notificationOverlay,
+.notifications {
+  border-radius: variables.$border-radius;
+  background-color: variables.$bg-color;
+
+  .notification {
+    border-radius: variables.$border-radius;
+    padding: 15px;
+  }
+
+  @include variables.hoverButton;
+
+  .cover {
+    background-size: cover;
+    background-position: center;
+    min-height: 40px;
+    min-width: 40px;
+    border-radius: 5px;
+    -gtk-icon-size: 32px;
+  }
+
+  .info {
+    margin-left: 15px;
+    margin-right: 5px;
+
+    button {
+      padding: 0px;
+      image {
+        -gtk-icon-size: 15px;
+      }
+    }
+
+    .header label {
+      font-weight: bold;
+    }
+
+    #time,
+    #paragraph {
+      color: grey;
+    }
+    #paragraph {
+      font-size: 0.9em;
+    }
+    #time {
+      font-size: 0.8em;
+    }
+  }
+}
+
+.notifications {
+  .header {
+    margin: 5px;
+    margin-top: 0px;
+    label {
+      font-weight: bold;
+    }
+
+    @include variables.hoverButton;
+  }
+
+  .notification {
+    background-color: variables.$bg-secondary;
+  }
+}

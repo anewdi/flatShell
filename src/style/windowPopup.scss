@@ -1,0 +1,46 @@
+@use "./variables.scss";
+
+.windowPopup {
+  background-color: variables.$bg-color;
+  border-radius: variables.$border-radius;
+  padding: 15px;
+
+  .header {
+    margin: 5px;
+    margin-top: 0px;
+    label {
+      font-weight: bold;
+    }
+
+    @include variables.hoverButton;
+  }
+
+  .body {
+    border-radius: variables.$border-radius;
+    background-color: variables.$bg-secondary;
+
+    button {
+      padding: 15px;
+      border-radius: 0px;
+      border-bottom: 2px solid variables.$bg-color;
+
+      &:first-child {
+        border-top-left-radius: variables.$border-radius;
+        border-top-right-radius: variables.$border-radius;
+      }
+
+      &:last-child {
+        border-bottom-left-radius: variables.$border-radius;
+        border-bottom-right-radius: variables.$border-radius;
+        border: none;
+      }
+    }
+
+    @include variables.hoverButton;
+    @include variables.activeButton;
+
+    stack > label {
+      color: grey;
+    }
+  }
+}

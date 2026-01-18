@@ -1,0 +1,20 @@
+@use "./variables.scss";
+
+.powermenuWindow {
+  background-color: variables.$bg-color;
+  border-radius: variables.$border-radius;
+  padding: 10px;
+
+  button {
+    margin: 0px 4px;
+    &:focus {
+      outline: none;
+      background-color: variables.$hover;
+    }
+  }
+
+  image {
+    -gtk-icon-size: 16px;
+    padding: 5px 15px;
+  }
+}

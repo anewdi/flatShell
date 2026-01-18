@@ -1,0 +1,28 @@
+@use "./variables.scss";
+
+* {
+  color: variables.$fg-color;
+  font-family: Cantarell;
+  font-weight: normal;
+  font-size: 13px;
+  -gtk-icon-size: 13px;
+}
+
+window {
+  background-color: transparent;
+}
+
+button {
+  background-color: transparent;
+}
+
+separator {
+  margin: 0 15px;
+  padding: 0.5px;
+  border-radius: 10px;
+}
+
+scrolledwindow,
+scrolledwindow > * {
+  all: unset;
+}

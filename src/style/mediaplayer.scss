@@ -1,0 +1,82 @@
+@use "./variables.scss";
+.mediaplayer {
+  .singlePlayer {
+    min-height: 170px;
+
+    .coverArt {
+      border-radius: 15px 15px 0px 0px;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .coverDesc {
+      border-radius: 15px 15px 0px 0px;
+      padding: 10px;
+      background-size: cover;
+      background-position: center;
+      background-image: radial-gradient(
+        color-mix(in srgb, variables.$dark-bg 40%, white 5%) 11%,
+        color-mix(in srgb, variables.$dark-bg 60%, white 5%) 65%
+      );
+
+      label,
+      image {
+        color: grey;
+      }
+
+      .title {
+        color: white;
+        font-size: 1.2em;
+        margin-top: 10px;
+        font-weight: bold;
+      }
+
+      .artist {
+        color: white;
+        font-size: 1.1em;
+      }
+    }
+
+    .hoverControls button {
+      image {
+        color: white;
+      }
+
+      opacity: 0;
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    scale {
+      padding: 0px;
+      min-height: 0px;
+      trough {
+        border-radius: 0px 0px 15px 15px;
+        min-height: 7px;
+        background-color: variables.$bg-secondary;
+      }
+      highlight {
+        border-radius: 0px 15px 15px 15px;
+        background-color: variables.$accent;
+      }
+      slider {
+        all: unset;
+      }
+    }
+  }
+
+  #nothingPlaying {
+    border-radius: variables.$border-radius;
+    background-color: variables.$bg-secondary;
+    label {
+      font-weight: bold;
+      font-size: 14px;
+      color: grey;
+    }
+    image {
+      color: grey;
+      -gtk-icon-size: 30px;
+    }
+  }
+}

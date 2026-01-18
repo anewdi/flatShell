@@ -1,0 +1,30 @@
+$fg-color: var(--window-fg-color);
+$bg-color: var(--window-bg-color);
+$border-radius: var(--window-radius);
+$bg-secondary: var(--sidebar-bg-color);
+$hover: color-mix(in srgb, $bg-secondary, $fg-color 15%);
+//$bg-secondary: var(--card-bg-color);
+$accent: var(--accent-color);
+$accent-fg: var(--accent-fg-color);
+$accent-bg: var(--accent-bg-color);
+$dark-bg: #222226;
+
+@mixin hoverButton {
+  button:hover {
+    background-color: $hover;
+    label,
+    image,
+    stack > label {
+      color: $fg-color;
+    }
+  }
+}
+@mixin activeButton {
+  .activeButton {
+    background-color: $accent-bg;
+    *,
+    stack > label {
+      color: $accent-fg;
+    }
+  }
+}
