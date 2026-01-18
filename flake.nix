@@ -57,9 +57,8 @@
                   gtksave.packages.${system}.default
                   jq
                   wf-recorder
-                  networkmanagerapplet
                   playerctl
-                  glib
+                  gnome-control-center
                 ]
               )
             }
