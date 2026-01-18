@@ -65,18 +65,28 @@ Then you can either add it to your packages or setup a systemd service:
 ```
 
 ## Requirements
-Below is a list of requirements for the specific widgets/functions to work as intended:
-* *: [moreWaita](https://github.com/somepaulo/MoreWaita) icons is pretty nice for stuff like spotify icon.
+Below is a list of requirements for the specific widgets/functions to work as intended(these are services and must be in place on nix also):
+* *: [optional] [moreWaita](https://github.com/somepaulo/MoreWaita) icons is pretty nice for stuff like spotify icon.
 * Wifi: `networkmanager`, `nm-applet`(for authentication window)
 * Workspaces: `hyprland`
-* Keymap: `jq`, `hyprland` - reacts to external changes automatically and cycles on click.
+* Keymap: `hyprland` - reacts to external changes automatically and cycles on click.
 * Notifications: No other notification daemon running
 * Bluetooth: `bluez`
-* Sound: `playerctl`, `wireplumber` as audio backend on system
+* Sound: `wireplumber` as audio backend on system
 * Powerprofiles: `power-profiles-daemon`
-* Recorder: `wf-recorder` ([gtksave](https://github.com/anewdi/gtksave) is optional. I just gives fileDialog instead of predefined save location)
 * Nightlight: Should work with (stop/start/status) any systemd user service named "nightlight". Obviously you can also change this in the code.
-* Dark/light mode switching: `gsettings`
+
+This will also be enough if you use `ags` with the homeManager module or decide to use the `devShell` defined in this repo.
+
+If you do not use nix you will probably also need the following: 
+* `ags`
+* `astal` libraries
+* `libadwaita`
+* `wf-recorder`
+* `playerctl`
+* `gsettings`
+* `gnome-control-center`
+* [optional] [gtksave](https://github.com/anewdi/gtksave) (gives fileDialog instead of predefined save location)
 
 ### Gnome control center
 `gnome-control-center` is neccessary for settings icon to work. On any given widget it tries to open gnome control center at the section corresponding to the widget function(bluetooth widget -> gnome bluetooth page). 
