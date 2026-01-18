@@ -6,6 +6,64 @@ Wallpaper can be found [here](https://github.com/anewdi/wallz) (mtfuji.png)
 
 The dark mode and accent colors work through gsettings. If you have gnome control center you can change them from there.
 
+## Nix
+The project is packaged for nix. You can run the shell with `nix run github:anewdi/flatShell`.
+NOTE: Independent programs(`wf-recorder`, `jq`, etc) are included, but you must ensure that the required *services* are avaliable(`networkmanager`, `bluez`, `wireplumber`, etc).
+
+To use it in your system you should first add it to your `flake.nix`, for example: 
+```
+{
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    # add flatShell flake
+    flatshell{
+      url = "github:anewdi/flatShell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    }
+  };
+
+  outputs = { home-manager, nixpkgs, ... }@inputs:
+  let
+    system = "x86_64-linux";
+  in
+  {
+    homeConfigurations."${username}" = home-manager.lib.homeManagerConfiguration {
+      pkgs = import nixpkgs { inherit system; };
+
+      # pass inputs as specialArgs
+      extraSpecialArgs = { inherit inputs; };
+
+      # import your home.nix
+      modules = [ ./home-manager/home.nix ];
+    };
+  };
+}
+```
+Then you can either add it to your packages or setup a systemd service: 
+```
+{ inputs, pkgs, ... }:
+{
+  #Just add package
+  home.packages = [inputs.flatShell.packages.${pkgs.stdenv.hostPlatform.system}.default];
+
+  #Systemd service
+  systemd.user.services.nightlight = {
+    Unit = {
+      Description = "flatShell service";
+    };
+    Service = {
+      ExecStart = "${lib.getExe inputs.flatShell.packages.${pkgs.stdenv.hostPlatform.system}.default}";
+      Restart = "on-failure";
+    };
+    Install.WantedBy = [ "graphical-session.target" ];
+  };
+}
+```
+
 ## Requirements
 
 Below is a list of requirements for the specific widgets/functions to work as intended
@@ -17,8 +75,9 @@ Below is a list of requirements for the specific widgets/functions to work as in
 * Bluetooth: `bluez`
 * Sound: `playerctl`, `wireplumber` as audio backend on system
 * Powerprofiles: `power-profiles-daemon`
-* Recorder: `wf-recorder`
+* Recorder: `wf-recorder` ([gtksave](https://github.com/anewdi/gtksave) is optional. I just gives fileDialog instead of predefined save location)
 * Nightlight: Should work with (stop/start/status) any systemd user service named "nightlight". Obviously you can also change this in the code.
+* DarkMode: `gsettings-dekstop-scemas`
 
 ### Gnome control center
 `gnome-control-center` is neccessary for settings icon to work. On any given widget it tries to open gnome control center at the section corresponding to the widget function(bluetooth widget -> gnome bluetooth page). 
