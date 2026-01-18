@@ -1,10 +1,15 @@
 <img width="1920" height="1200" alt="preview" src="https://github.com/user-attachments/assets/f77258d8-6a44-4953-ad5b-ead728459ec4" />
 
+
 Bar and widgets made with ags. 
 
 Wallpaper can be found [here](https://github.com/anewdi/wallz/mtfuji.png).
 
-The dark mode and accent colors follow what is set in `dconf`. If you have gnome control center you can change them from there. Otherwise you can use something like `dconf-editor` or `gsettings`
+The dark mode and accent colors follow what is set in `dconf`. If you have gnome control center you can change them from there. Otherwise you can 
+use something like `dconf-editor` or `gsettings`
+
+## Video preview
+https://github.com/user-attachments/assets/ad95d2f4-4b5b-40ff-baf3-4bbbffe0ca25
 
 ## Nix
 The project is packaged for nix. You can run the shell with `nix run github:anewdi/flatShell`.
@@ -117,6 +122,3 @@ Description=Gnome RFKill support service
 I have two types of powermenu, `powermenuwindow` and `powermenuRightWindow`. On my setup i use both. One on the right for activation from the control center, and one centered which i activate with a keybind(hyprland): `$mainMod, ESCAPE, exec, ags -r "togglePopup('powermenu')"'`
 
 If you do not want firefox to show in media playing widget (and dont want to change the code), you can set the following setting in firefox(about:config): `media.hardwaremediakeys.enabled = false`
-
-## Video preview
-https://github.com/user-attachments/assets/ad95d2f4-4b5b-40ff-baf3-4bbbffe0ca25
