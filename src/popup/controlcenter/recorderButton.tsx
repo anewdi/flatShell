@@ -1,5 +1,5 @@
 import { Gtk } from "ags/gtk4";
-import { exec, execAsync, subprocess } from "ags/process";
+import { exec, execAsync } from "ags/process";
 import { createState } from "gnim";
 
 const [active, setActive] = createState(false);
@@ -25,9 +25,13 @@ export const recorderButton = () =>
 
         <button onClicked={() => {
             if (!active.peek()) {
-                execAsync(`wf-recorder -f /tmp/recording.mkv`).then(() => {
+                const recordPath = "/tmp/recording.mkv"
+                execAsync(`wf-recorder -f ${recordPath} -y`).then(() => {
                     setActive(false);
-                    execAsync(`bash -c "cat /tmp/recording.mkv | gtksave"`);
+                    execAsync(`bash -c "cat /tmp/recording.mkv | gtksave"`).catch(() => {
+                        console.warn(`Recoding avaliable at ${recordPath}`);
+                        console.warn("Could not open gtksave, is it avaliable on path?");
+                    });
                 });
                 setActive(true);
                 counter();

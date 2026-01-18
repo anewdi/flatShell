@@ -10,13 +10,13 @@
       "locked": {
         "lastModified": 1764289441,
         "narHash": "sha256-ak+lgFiYE5PHByN1/BRkO5JP498hno6Ix24C1Qf/vec=",
-        "owner": "aylur",
+        "owner": "Aylur",
         "repo": "ags",
         "rev": "e169694390548dfd38ff40f1ef2163d6c3ffe3ea",
         "type": "github"
       },
       "original": {
-        "owner": "aylur",
+        "owner": "Aylur",
         "repo": "ags",
         "type": "github"
       }
@@ -42,13 +42,53 @@
         "type": "github"
       }
     },
+    "astal_2": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1764173295,
+        "narHash": "sha256-Jh4VtPcK2Ov+RTcV9FtyQRsxiJmXFQGfqX6jjM7/mgc=",
+        "owner": "Aylur",
+        "repo": "astal",
+        "rev": "7d1fac8a4b2a14954843a978d2ddde86168c75ef",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Aylur",
+        "repo": "astal",
+        "type": "github"
+      }
+    },
+    "gtksave": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1768770604,
+        "narHash": "sha256-1USYAd2evUPAzPQnWh7/GgfWMmOqQOE3ulOpsQVFwMg=",
+        "owner": "anewdi",
+        "repo": "gtksave",
+        "rev": "9a8d9a7d38bac406f33ed0722de9344172ff0aba",
+        "type": "github"
+      },
+      "original": {
+        "owner": "anewdi",
+        "repo": "gtksave",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1768305791,
-        "narHash": "sha256-AIdl6WAn9aymeaH/NvBj0H9qM+XuAuYbGMZaP0zcXAQ=",
+        "lastModified": 1768564909,
+        "narHash": "sha256-Kell/SpJYVkHWMvnhqJz/8DqQg2b6PguxVWOuadbHCc=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "1412caf7bf9e660f2f962917c14b1ea1c3bc695e",
+        "rev": "e4bae1bd10c9c57b2cf517953ab70060a828ee6f",
         "type": "github"
       },
       "original": {
@@ -61,6 +101,8 @@
     "root": {
       "inputs": {
         "ags": "ags",
+        "astal": "astal_2",
+        "gtksave": "gtksave",
         "nixpkgs": "nixpkgs"
       }
     }

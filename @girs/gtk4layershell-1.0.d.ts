@@ -163,6 +163,7 @@ declare module 'gi://Gtk4LayerShell?version=1.0' {
          * @returns version of the zwlr_layer_shell_v1 protocol supported by the compositor or 0 if the protocol is not supported.
          */
         function get_protocol_version(): number;
+        function get_respect_close(window: Gtk.Window): boolean;
         function get_zwlr_layer_surface_v1(window: Gtk.Window): any | null;
         /**
          * Set the `window` up to be a layer surface once it is mapped. this must be called before
@@ -250,6 +251,17 @@ declare module 'gi://Gtk4LayerShell?version=1.0' {
          * @param name_space The namespace of this layer surface.
          */
         function set_namespace(window: Gtk.Window, name_space?: string | null): void;
+        /**
+         * Compositors may send the `zwlr_layer_surface_v1.closed` event in some cases (such as
+         * when an output is destroyed). Prior to v1.3 this always triggered a GTK `close-request`
+         * signal, which would destroy the window if not intercepted by application code. In v1.3+
+         * this behavior is disabled by default, and can be turned back on by calling this
+         * function with %TRUE. To handle the `.closed` event without destroying your window
+         * turn respect_close on and connect a `close-request` listener that returns %TRUE.
+         * @param window A layer surface.
+         * @param respect_close If to forward the .closed event to GTK.
+         */
+        function set_respect_close(window: Gtk.Window, respect_close: boolean): void;
         /**
          * Name of the imported GIR library
          * `see` https://gitlab.gnome.org/GNOME/gjs/-/blob/master/gi/ns.cpp#L188

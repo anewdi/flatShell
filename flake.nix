@@ -1,28 +1,16 @@
 {
-  description = "My Awesome Desktop Shell";
-
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-
-    ags = {
-      url = "github:aylur/ags";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-  };
-
   outputs =
     {
       self,
       nixpkgs,
       ags,
+      astal,
+      gtksave,
     }:
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
-      pname = "flatShell";
-      entry = "app.tsx";
-
-      astalPackages = with ags.packages.${system}; [
+      commonPkgs = with astal.packages.${system}; [
         hyprland
         io
         battery
@@ -33,45 +21,55 @@
         notifd
         mpris
         astal4
-      ];
-
-      extraPackages = astalPackages ++ [
         pkgs.libadwaita
-        pkgs.libsoup_3
       ];
     in
     {
-      packages.${system} = {
-        default = pkgs.stdenv.mkDerivation {
-          name = pname;
-          src = ./.;
+      packages.${system}.default = pkgs.stdenv.mkDerivation {
+        version = "2.0.0";
+        pname = "flatShell";
+        src = ./.;
 
-          nativeBuildInputs = with pkgs; [
-            wrapGAppsHook
-            gobject-introspection
-            ags.packages.${system}.default
-          ];
+        nativeBuildInputs = with pkgs; [
+          wrapGAppsHook3
+          gobject-introspection
+          ags.packages.${system}.default
+        ];
 
-          buildInputs = extraPackages ++ [ pkgs.gjs ];
+        buildInputs = [
+          pkgs.gjs
+          pkgs.glib
+        ]
+        ++ commonPkgs;
 
-          installPhase = ''
-            runHook preInstall
+        installPhase = ''
+          mkdir -p $out/bin
+          ags bundle -g 4 app.tsx $out/bin/flatShell 
+        '';
 
-            mkdir -p $out/bin
-            mkdir -p $out/share
-            cp -r * $out/share
-            ags bundle ${entry} $out/bin/${pname} -d "SRC='$out/share'"
-
-            runHook postInstall
-          '';
-        };
+        preFixup = ''
+          gappsWrapperArgs+=(
+            --prefix PATH : ${
+              pkgs.lib.makeBinPath (
+                with pkgs;
+                [
+                  gtksave.packages.${system}.default
+                  jq
+                  wf-recorder
+                  networkmanagerapplet
+                  playerctl
+                ]
+              )
+            }
+          )
+        '';
       };
 
       devShells.${system} = {
         default = pkgs.mkShell {
           buildInputs = [
             (ags.packages.${system}.default.override {
-              inherit extraPackages;
+              extraPackages = commonPkgs;
             })
             pkgs.prettierd
             pkgs.typescript-language-server
@@ -79,4 +77,21 @@
         };
       };
     };
+
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+
+    ags = {
+      url = "github:Aylur/ags";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    astal = {
+      url = "github:Aylur/astal";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    gtksave = {
+      url = "github:anewdi/gtksave";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
 }

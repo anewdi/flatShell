@@ -62,4 +62,3 @@ import './astalbluetooth-0.1.d.ts';
 import './astalbattery-0.1.d.ts';
 import './astal-4.0.d.ts';
 import './astal-3.0.d.ts';
-import './adw-1.d.ts';
