@@ -121,6 +121,19 @@ I have two types of powermenu, `powermenuwindow` and `powermenuRightWindow`. On 
 
 If you do not want firefox to show in media playing widget (and dont want to change the code), you can set the following setting in firefox(about:config): `media.hardwaremediakeys.enabled = false`
 
+
+
+
+
 ## Video preview
-https://github.com/user-attachments/assets/ad95d2f4-4b5b-40ff-baf3-4bbbffe0ca25
 <a id = "video"/>
+
+
+
+https://github.com/user-attachments/assets/a9abe2b9-684b-4d13-b725-c91bcdba7c60
+
+
+
+
+
+
