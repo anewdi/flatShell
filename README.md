@@ -1,4 +1,4 @@
-<img width="1920" height="1200" alt="preview" src="https://github.com/user-attachments/assets/b34be91d-f415-4587-a3fc-9fae7efe8f82" />
+<img width="1920" height="1200" alt="preview" src="https://github.com/user-attachments/assets/f77258d8-6a44-4953-ad5b-ead728459ec4" />
 
 Bar and widgets made with ags. 
 
@@ -39,8 +39,8 @@ Description=Gnome RFKill support service
 ```
 
 ## Widgets
-`./src/popup`: The interactable windows are toggled by buttons on bar.
-`./src/overlays`: Windows that are automatically overlaid on certain signals. May be interactable.
+* `./src/popup`: The interactable windows are toggled by buttons on bar.
+* `./src/overlays`: Windows that are automatically overlaid on certain signals. May be interactable.
 
 I have two types of powermenu, `powermenuwindow` and `powermenuRightWindow`. On my setup i use both. One on the right for activation from the control center, and one centered which i activate with a keybind(hyprland): `$mainMod, ESCAPE, exec, ags -r "togglePopup('powermenu')"'`
 
