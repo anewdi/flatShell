@@ -1,6 +1,6 @@
-import { Gtk } from "ags/gtk4";
 import Hyprland from "gi://AstalHyprland"
 import { createBinding, createComputed } from "gnim"
+import { execAsync } from "ags/process";
 
 const hyprland = Hyprland.get_default()
 
@@ -21,7 +21,7 @@ function workspaceButton(n: number): JSX.Element {
 
     return (
         <button
-            onClicked={() => { hyprland.message_async(`dispatch workspace ${n}`, () => { }) }}
+            onClicked={() => execAsync(`hyprctl dispatch 'hl.dsp.focus({workspace  = ${n}})'`)}
             class={className}
         />
     )
