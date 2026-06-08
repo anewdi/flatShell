@@ -16,7 +16,7 @@ type tProps = {
 const notifd = Notifd.get_default();
 
 const notifications = createBinding(notifd, "notifications")(n => {
-    n = n.filter(nn => nn.expire_timeout > 5000);
+    n = n.filter(nn => nn.expire_timeout > 5000 || !nn.transient);
     if (n.length == 0 || notifd.dont_disturb) {
         setRevealed(false);
         return n;

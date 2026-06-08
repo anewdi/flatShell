@@ -33,7 +33,7 @@ function calcTime(oldTime: number): string {
         return "1 week ago"
     }
 
-    return timeSinceMinutes / 60 / 24 / 7 + " weeks ago";
+    return Math.floor(timeSinceMinutes / 60 / 24 / 7) + " weeks ago";
 }
 
 const determineIsIcon = (image: string): boolean => (theme != null && theme.has_icon(image + "-symbolic"));
