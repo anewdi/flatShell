@@ -1,17 +1,26 @@
 import { exec } from "ags/process";
 import { createState } from "gnim";
 
-const [active, setActive] = createState(exec(`bash -c "systemctl --user is-active nightlight"`) == "active");
+function checkState() {
+    try {
+        exec(`bash -c "systemctl --user is-active nightlight"`);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}
+
+const [active, setActive] = createState(checkState());
 export const nightlightButton = () =>
     <button
         class={active(b => b ? "activeButton" : "")}
         onClicked={() => {
             if (active()) {
                 exec(`bash -c "systemctl --user stop nightlight"`);
-                setActive(c => false);
+                setActive(false);
             } else {
                 exec(`bash -c "systemctl --user start nightlight"`);
-                setActive(c => true);
+                setActive(true);
             }
         }}>
         <box spacing={8}>
