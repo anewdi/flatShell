@@ -85,6 +85,7 @@
     ags = {
       url = "github:Aylur/ags";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.astal.follows = "astal";
     };
     astal = {
       url = "github:Aylur/astal";
