@@ -1,20 +1,19 @@
-import Brightness from "../lib/brightness";
+import Brightness from "gi://AstalBrightness";
 import { Accessor, createBinding, } from "gnim";
 
-const brightness = Brightness.get_default();
+const screen = Brightness.get_default().get_screen();
 
-const enabled = createBinding(brightness, "enabled")
-const bvalue = createBinding(brightness, "screenValue")
+const bvalue = createBinding(screen, "brightness")
 
 export const brightnessSlider = (): JSX.Element =>
-    <box class={"slider"} sensitive={enabled}>
+    <box class={"slider"} sensitive={true}>
         <button><image iconName={"display-brightness-symbolic"} /></button>
         <slider
-            sensitive={enabled}
+            sensitive={true}
             hexpand={true}
             value={bvalue}
             min={0}
             max={1}
-            onChangeValue={({ value }) => { brightness.screenValue = value; }}
+            onChangeValue={({ value }) => { screen.brightness = value; }}
         />
     </box>;

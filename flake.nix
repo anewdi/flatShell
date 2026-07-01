@@ -12,6 +12,7 @@
       pkgs = nixpkgs.legacyPackages.${system};
       commonPkgs = with astal.packages.${system}; [
         hyprland
+        brightness
         io
         battery
         network
